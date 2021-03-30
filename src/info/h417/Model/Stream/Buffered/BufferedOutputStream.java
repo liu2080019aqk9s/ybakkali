@@ -2,8 +2,10 @@ package info.h417.Model.Stream.Buffered;
 
 import info.h417.Model.Stream.BaseOutputStream;
 
-public class BufferedOutputStream extends BaseOutputStream {
+import java.io.*;
 
+public class BufferedOutputStream extends BaseOutputStream {
+    private BufferedWriter bufferedWriter;
 
     /**
      * Constructor of an outputStream that uses buffering mechanism
@@ -15,17 +17,23 @@ public class BufferedOutputStream extends BaseOutputStream {
     }
 
     @Override
-    public void create() {
-
+    public void create() throws IOException {
+        super.create();
+        if(bufferedWriter == null){
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(out));
+        }
     }
 
     @Override
-    public void close() {
+    public void writeln(String text) throws IOException {
+        bufferedWriter.write(text);
+        bufferedWriter.newLine();
 
+        bufferedWriter.flush(); // Marche sans si on close le fichier
     }
 
     @Override
-    public void writeln(String text) {
-
+    public void close() throws IOException {
+        bufferedWriter.close();
     }
 }

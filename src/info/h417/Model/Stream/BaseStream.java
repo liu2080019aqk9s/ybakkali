@@ -1,5 +1,6 @@
 package info.h417.Model.Stream;
 
+
 public class BaseStream {
     protected String filename;
 

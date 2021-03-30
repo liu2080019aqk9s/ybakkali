@@ -2,6 +2,8 @@ package info.h417.Model.Stream.Mmap;
 
 import info.h417.Model.Stream.BaseInputStream;
 
+import java.io.IOException;
+
 public class MmapInputStream extends BaseInputStream {
 
 
@@ -37,7 +39,7 @@ public class MmapInputStream extends BaseInputStream {
     }
 
     @Override
-    public boolean end_of_stream() {
+    public boolean end_of_stream() throws IOException {
         return false;
     }
 }

@@ -4,6 +4,8 @@ import info.h417.Model.Stream.BaseInputStream;
 import info.h417.Model.Stream.BaseOutputStream;
 import info.h417.Model.Stream.Generator;
 
+import java.io.FileNotFoundException;
+
 public class BufferedGenerator extends Generator {
 
     @Override

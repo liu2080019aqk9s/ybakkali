@@ -2,8 +2,9 @@ package info.h417.Model.Stream.One;
 
 import info.h417.Model.Stream.BaseInputStream;
 
-public class OneInputStream extends BaseInputStream {
+import java.io.*;
 
+public class OneInputStream extends BaseInputStream {
 
     /**
      * Constructor of an inputStream that reads one character at time
@@ -15,27 +16,16 @@ public class OneInputStream extends BaseInputStream {
     }
 
     @Override
-    public String readln() {
-        return null;
+    public String readln() throws IOException {
+        String temp = "";
+        char character =  (char) in.read();
+        while( character != '\n' && !end_of_stream()){
+            temp += character;
+            character = (char) in.read();
+        }
+        return temp;
     }
 
-    @Override
-    public void open() {
 
-    }
 
-    @Override
-    public void close() {
-
-    }
-
-    @Override
-    public void seek(long pos) {
-
-    }
-
-    @Override
-    public boolean end_of_stream() {
-        return false;
-    }
 }

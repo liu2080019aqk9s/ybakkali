@@ -2,6 +2,8 @@ package info.h417.Model.Stream.One;
 
 import info.h417.Model.Stream.BaseOutputStream;
 
+import java.io.IOException;
+
 public class OneOutputStream extends BaseOutputStream {
 
 
@@ -14,18 +16,12 @@ public class OneOutputStream extends BaseOutputStream {
         super(filename);
     }
 
-    @Override
-    public void create() {
-
-    }
 
     @Override
-    public void close() {
-
-    }
-
-    @Override
-    public void writeln(String text) {
-
+    public void writeln(String text) throws IOException {
+        for(char character : text.toCharArray()){
+            out.write(character);
+        }
+        out.write('\n');
     }
 }
