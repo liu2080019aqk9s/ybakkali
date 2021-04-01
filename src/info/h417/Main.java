@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Generator generator = new OneBufferGenerator(7);
+        Generator generator = new OneBufferGenerator(9);
 
         BaseInputStream baseInputStream = generator.getInputStream("File1");
         baseInputStream.open();

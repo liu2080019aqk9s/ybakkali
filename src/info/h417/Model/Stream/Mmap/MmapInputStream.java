@@ -2,10 +2,9 @@ package info.h417.Model.Stream.Mmap;
 
 import info.h417.Model.Stream.BaseInputStream;
 
-import java.io.IOException;
 
 public class MmapInputStream extends BaseInputStream {
-
+    private int nbCharacters;
 
     /**
      * Constructor of an inputStream that reads by mapping and unmapping
@@ -16,6 +15,7 @@ public class MmapInputStream extends BaseInputStream {
      */
     public MmapInputStream(String filename,int nbCharacters) {
         super(filename);
+        this.nbCharacters = nbCharacters;
     }
 
     @Override
@@ -23,23 +23,4 @@ public class MmapInputStream extends BaseInputStream {
         return null;
     }
 
-    @Override
-    public void open() {
-
-    }
-
-    @Override
-    public void close() {
-
-    }
-
-    @Override
-    public void seek(long pos) {
-
-    }
-
-    @Override
-    public boolean end_of_stream() throws IOException {
-        return false;
-    }
 }

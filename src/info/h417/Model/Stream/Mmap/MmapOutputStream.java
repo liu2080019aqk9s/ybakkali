@@ -4,6 +4,8 @@ import info.h417.Model.Stream.BaseOutputStream;
 
 public class MmapOutputStream extends BaseOutputStream {
 
+    private int nbCharacters;
+
     /**
      * Constructor of an outputStream that write by mapping and unmapping
      * nbCharacters characters of the file into internal memory through memory mapping.
@@ -13,16 +15,7 @@ public class MmapOutputStream extends BaseOutputStream {
      */
     public MmapOutputStream(String filename,int nbCharacters) {
         super(filename);
-    }
-
-    @Override
-    public void create() {
-
-    }
-
-    @Override
-    public void close() {
-
+        this.nbCharacters = nbCharacters;
     }
 
     @Override
