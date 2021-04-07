@@ -46,7 +46,10 @@ class GeneratorTest {
 
         String text =  "Bonjour Le monde";
         System.out.println("TEST WRITE");
+
+        String text2 =  "On se trouve à la seconde ligne"; //Test fonction
         outputStream.writeln(text);
+        outputStream.writeln(text2);
         outputStream.close();
 
         BaseInputStream inputStream = generator.getInputStream(filename);
@@ -62,6 +65,9 @@ class GeneratorTest {
         text = inputStream.readln();
         assertEquals(exceptedText,text);
 
+        text = inputStream.readln();
+
+        assertEquals(text2,text);
         System.out.println("TEST END OF STREAM EQUAL TRUE");
         assertTrue(inputStream.end_of_stream());
         inputStream.close();

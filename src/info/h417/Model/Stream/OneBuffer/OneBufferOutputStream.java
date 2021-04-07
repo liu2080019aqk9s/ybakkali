@@ -7,7 +7,6 @@ import java.io.IOException;
 public class OneBufferOutputStream extends BaseOutputStream {
 
     private byte[] buffer;
-    private int sizeBuffer;
 
     /**
      * Basic Constructor of an outputStream that write sizeBuffer character in a buffer
@@ -17,20 +16,20 @@ public class OneBufferOutputStream extends BaseOutputStream {
      */
     public OneBufferOutputStream(String filename,int sizeBuffer) {
         super(filename);
-        this.buffer = new byte[sizeBuffer] ;
+        this.buffer = new byte[sizeBuffer];
     }
 
     @Override
     public void writeln(String text) throws IOException {
         int i = 0;
-        for(char character : text.toCharArray()){
-            buffer[i] = (byte) character;
+        for(byte character : text.getBytes()){
+            buffer[i] = character;
             if(i == buffer.length -1){
                 out.write(buffer);
             }
             i = (i + 1)%buffer.length;
         }
-        buffer[i] = (byte) '\n';
+        buffer[i] = '\n';
         out.write(buffer,0,i+1);
     }
 
