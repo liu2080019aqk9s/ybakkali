@@ -3,6 +3,7 @@ package info.h417.Model.Stream.OneBuffer;
 import info.h417.Model.Stream.BaseOutputStream;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class OneBufferOutputStream extends BaseOutputStream {
 
@@ -22,8 +23,9 @@ public class OneBufferOutputStream extends BaseOutputStream {
     @Override
     public void writeln(String text) throws IOException {
         int i = 0;
-        for(byte character : text.getBytes()){
-            buffer[i] = character;
+        for(char character : text.toCharArray()){
+            buffer[i] = (byte) ( character) ;
+
             if(i == buffer.length -1){
                 out.write(buffer);
             }

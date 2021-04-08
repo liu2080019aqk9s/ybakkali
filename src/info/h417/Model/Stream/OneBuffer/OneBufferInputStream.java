@@ -33,7 +33,7 @@ public class OneBufferInputStream extends BaseInputStream {
                     break;
                 }
                 else{
-                    text += (char) buffer[j];
+                    text += (char) (buffer[j ] & 0xff);
                 }
             }
         }
