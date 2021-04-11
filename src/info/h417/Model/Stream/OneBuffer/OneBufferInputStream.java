@@ -23,7 +23,7 @@ public class OneBufferInputStream extends BaseInputStream {
         long current = in.getChannel().position();
         long i = 0;
         String text = "";
-        while(i != -1){
+        while(i != -1 && !end_of_stream()){
             in.read(buffer);
             for(int j = 0; j < buffer.length; j++){
                 i++;
