@@ -38,8 +38,8 @@ class GeneratorTest {
 
     public void Test(Generator generator) throws IOException {
         String filename = "text2.txt";
-        //BaseOutputStream outputStream = generator.getOutputStream(filename);
-        BaseOutputStream outputStream = new BufferedGenerator().getOutputStream(filename);
+        BaseOutputStream outputStream = generator.getOutputStream(filename);
+        //BaseOutputStream outputStream = new BufferedGenerator().getOutputStream(filename);
         System.out.println("TEST CREATE");
         outputStream.create();
         assertTrue(new File(filename).exists());
