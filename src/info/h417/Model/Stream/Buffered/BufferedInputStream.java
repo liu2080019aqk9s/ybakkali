@@ -42,4 +42,9 @@ public class BufferedInputStream extends BaseInputStream {
         super.seek(pos);
         bufferedReader = new BufferedReader(new InputStreamReader( in ));
     }
+
+    @Override
+    public boolean end_of_stream() throws IOException {
+        return !bufferedReader.ready();
+    }
 }

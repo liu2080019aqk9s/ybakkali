@@ -28,6 +28,7 @@ public class MmapOutputStream extends BaseOutputStream {
     @Override
     public void create() throws IOException {
         super.create();
+        super.close();
         fc = new RandomAccessFile(filename, "rw").getChannel();
     }
 
@@ -42,8 +43,8 @@ public class MmapOutputStream extends BaseOutputStream {
                 size = text.length() - i + 1;
                 loop = false;
             }
-            buffer = fc.map(FileChannel.MapMode.READ_WRITE, out.getChannel().position(),  size  );
-            long newPosition = out.getChannel().position();
+            buffer = fc.map(FileChannel.MapMode.READ_WRITE, fc.position(),  size  );
+            long newPosition = fc.position();
             for( int j = 0; j < size; j++){
                 if(i < text.length()){
                     character = text.charAt(i);
@@ -55,13 +56,13 @@ public class MmapOutputStream extends BaseOutputStream {
                 i++;
                 newPosition++;
             }
-            out.getChannel().position(newPosition);
+
+            fc.position(newPosition);
         }
     }
 
     @Override
     public void close() throws IOException {
-        super.close();
         fc.close();
     }
 }
