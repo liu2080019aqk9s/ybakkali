@@ -60,7 +60,6 @@ class GeneratorTest {
     public void Test(Generator generator) throws IOException {
         String filename = "Files/text2.txt";
         BaseOutputStream outputStream = generator.getOutputStream(filename);
-        //BaseOutputStream outputStream = new BufferedGenerator().getOutputStream(filename);
         System.out.println("TEST CREATE");
         outputStream.create();
         assertTrue(new File(filename).exists());
@@ -96,9 +95,8 @@ class GeneratorTest {
         //new File(filename).delete();
     }
     public void Test2(Generator generator) throws IOException {
-        String filename = "text2.txt";
+        String filename = "Files/text2.txt";
         BaseOutputStream outputStream = generator.getOutputStream(filename);
-        //BaseOutputStream outputStream = new BufferedGenerator().getOutputStream(filename);
         System.out.println("TEST CREATE");
         outputStream.create();
         assertTrue(new File(filename).exists());
