@@ -24,7 +24,7 @@ public class BufferedInputStream extends BaseInputStream {
 
 
     @Override
-    public void open() throws FileNotFoundException {
+    public void open() throws IOException {
         super.open();
         if(bufferedReader == null){
             bufferedReader = new BufferedReader(new InputStreamReader( in));

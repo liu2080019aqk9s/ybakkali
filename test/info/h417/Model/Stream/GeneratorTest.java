@@ -13,6 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeneratorTest {
 
+    @Test
+    public void Mmap() throws IOException {
+        int nbCharacter = 5;
+        Test(new MmapGenerator(nbCharacter));
+    }
 
     @Test
     public void Buffered() throws IOException {
@@ -30,16 +35,11 @@ class GeneratorTest {
         Test(new OneBufferGenerator(sizeBuffer));
     }
 
-    @Test
-    public void Mmap() throws IOException {
-        int nbCharacter = 5;
-        Test(new MmapGenerator(nbCharacter));
-    }
 
     public void Test(Generator generator) throws IOException {
         String filename = "text2.txt";
-        BaseOutputStream outputStream = generator.getOutputStream(filename);
-
+        //BaseOutputStream outputStream = generator.getOutputStream(filename);
+        BaseOutputStream outputStream = new BufferedGenerator().getOutputStream(filename);
         System.out.println("TEST CREATE");
         outputStream.create();
         assertTrue(new File(filename).exists());
@@ -72,6 +72,6 @@ class GeneratorTest {
         assertTrue(inputStream.end_of_stream());
         inputStream.close();
 
-        new File(filename).delete();
+        //new File(filename).delete();
     }
 }

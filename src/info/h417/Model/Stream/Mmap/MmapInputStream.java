@@ -2,6 +2,7 @@ package info.h417.Model.Stream.Mmap;
 
 import info.h417.Model.Stream.BaseInputStream;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -11,54 +12,53 @@ import java.nio.file.StandardOpenOption;
 
 public class MmapInputStream extends BaseInputStream {
     private int nbCharacters;
-    private long pos = 0;
-    private FileChannel fileChannel;
     private MappedByteBuffer buffer;
 
     /**
      * Constructor of an inputStream that reads by mapping and unmapping
      * nbCharacters characters of the file into internal memory through memory mapping.
      *
-     * @param filename The path of the file
+     * @param filename     The path of the file
      * @param nbCharacters
      */
-    public MmapInputStream(String filename,int nbCharacters) {
+    public MmapInputStream(String filename, int nbCharacters) {
         super(filename);
         this.nbCharacters = nbCharacters;
-        try {
-            fileChannel = FileChannel.open(Paths.get(filename), StandardOpenOption.READ);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
-    public void seek(long pos) {
-        this.pos = pos;
+    public void open() throws IOException {
+        super.open();
     }
 
     @Override
     public String readln() throws IOException {
-        if (this.pos <= fileChannel.size()) {
+        if (! end_of_stream()) {
             StringBuilder line = new StringBuilder();
-            long n = (this.pos + nbCharacters <= fileChannel.size()) ? this.nbCharacters : fileChannel.size() - this.pos;
-
-            try {
-                buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, this.pos, n);
-                System.out.println("-----------");
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
+            String text = "";
+            boolean loop = true;
+            while(!end_of_stream() && loop){
+                long n = (in.getChannel().position() + nbCharacters <= in.getChannel().size()) ? this.nbCharacters : in.getChannel().size() - in.getChannel().position();
+                buffer = in.getChannel().map(FileChannel.MapMode.READ_ONLY, in.getChannel().position(), n);
+                long newPosition = in.getChannel().position();
+                for (int i = 0; i < buffer.limit(); i++) {
+                    char character = (char) (buffer.get() & 0xFF);
+                    if(character  == '\n' ||  character == '\r') {
+                        loop = false;
+                        newPosition += 2;
+                        break;
+                    }
+                    else{
+                        line.append(character);
+                        text += character;
+                        System.out.println(text);
+                        newPosition += 1;
+                    }
+                }
+                seek(newPosition);
             }
-
-            for (int i = 0; i < buffer.limit(); i++) {
-                line.append((char) (buffer.get() & 0xFF));
-            }
-
-            pos += nbCharacters;
-            return line.toString();
+            return text;
         }
         return "EOS";
     }

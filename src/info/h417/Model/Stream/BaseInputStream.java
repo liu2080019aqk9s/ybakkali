@@ -23,7 +23,7 @@ public abstract class BaseInputStream extends BaseStream {
     /**
      * open an existing file for reading
      */
-    public void open() throws FileNotFoundException{
+    public void open() throws IOException {
         if(in == null){
             in = new FileInputStream(filename);
         }
