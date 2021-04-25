@@ -35,7 +35,6 @@ public class MmapInputStream extends BaseInputStream {
     @Override
     public String readln() throws IOException {
         if (! end_of_stream()) {
-            StringBuilder line = new StringBuilder();
             String text = "";
             boolean loop = true;
             while(!end_of_stream() && loop){
@@ -46,13 +45,11 @@ public class MmapInputStream extends BaseInputStream {
                     char character = (char) (buffer.get() & 0xFF);
                     if(character  == '\n' ||  character == '\r') {
                         loop = false;
-                        newPosition += 2;
+                        newPosition += 1;
                         break;
                     }
                     else{
-                        line.append(character);
                         text += character;
-                        System.out.println(text);
                         newPosition += 1;
                     }
                 }
