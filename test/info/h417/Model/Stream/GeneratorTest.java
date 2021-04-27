@@ -20,6 +20,23 @@ class GeneratorTest {
     }
 
     @Test
+    public void Mmap2() throws IOException {
+        Generator generator = new MmapGenerator(2);
+        assertNotNull(generator);
+        BaseInputStream baseInputStream = generator.getInputStream("Files/file.txt");
+        assertNotNull(baseInputStream);
+
+        baseInputStream.open();
+
+        assertEquals("aaaaaa", baseInputStream.readln());
+        assertEquals("bbbbbb", baseInputStream.readln());
+        assertEquals("cccccc", baseInputStream.readln());
+        assertEquals("dddddd", baseInputStream.readln());
+        assertEquals("éééééé", baseInputStream.readln());
+
+    }
+
+    @Test
     public void Buffered() throws IOException {
         Test(new BufferedGenerator());
     }
@@ -37,7 +54,7 @@ class GeneratorTest {
 
 
     public void Test(Generator generator) throws IOException {
-        String filename = "text2.txt";
+        String filename = "Files/text2.txt";
         BaseOutputStream outputStream = generator.getOutputStream(filename);
         //BaseOutputStream outputStream = new BufferedGenerator().getOutputStream(filename);
         System.out.println("TEST CREATE");
