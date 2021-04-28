@@ -4,6 +4,7 @@ import info.h417.Model.Stream.BaseInputStream;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
@@ -13,6 +14,7 @@ import java.nio.file.StandardOpenOption;
 public class MmapInputStream extends BaseInputStream {
     private int nbCharacters;
     private MappedByteBuffer buffer;
+    private FileChannel fc;
 
     /**
      * Constructor of an inputStream that reads by mapping and unmapping
@@ -29,35 +31,46 @@ public class MmapInputStream extends BaseInputStream {
 
     @Override
     public void open() throws IOException {
-        super.open();
+        //super.open();
+        fc = new RandomAccessFile(filename, "r").getChannel();
+    }
+
+    @Override
+    public void seek(long pos) throws IOException {
+        fc.position(pos);
+    }
+
+    @Override
+    public boolean end_of_stream() throws IOException {
+        return fc.position() >= fc.size();
     }
 
     @Override
     public String readln() throws IOException {
-        if (! end_of_stream()) {
-            String text = "";
-            boolean loop = true;
-            while(!end_of_stream() && loop){
-                long n = (in.getChannel().position() + nbCharacters <= in.getChannel().size()) ? this.nbCharacters : in.getChannel().size() - in.getChannel().position();
-                buffer = in.getChannel().map(FileChannel.MapMode.READ_ONLY, in.getChannel().position(), n);
-                long newPosition = in.getChannel().position();
-                for (int i = 0; i < buffer.limit(); i++) {
-                    char character = (char) (buffer.get() & 0xFF);
-                    if(character  == '\n' ||  character == '\r') {
-                        loop = false;
-                        newPosition += 1;
-                        break;
-                    }
-                    else{
-                        text += character;
-                        newPosition += 1;
-                    }
+        String text = "";
+        boolean loop = true;
+        while(!end_of_stream() && loop){
+            long n = (fc.position() + nbCharacters <= fc.size()) ? this.nbCharacters : fc.size() - fc.position();
+            buffer = fc.map(FileChannel.MapMode.READ_ONLY, fc.position(), n);
+            long newPosition = fc.position() ;
+            for (int i = 0; i < buffer.limit(); i++) {
+                char character = (char) (buffer.get() & 0xFF);
+                if(character  == '\n' ||  character == '\r') {
+                    loop = false;
+                    newPosition += 1;
                 }
-                seek(newPosition);
+                if(loop){
+                    text += character;
+                    newPosition += 1;
+                }
             }
-            return text;
+            seek(newPosition);
         }
-        return "EOS";
+        return text;
     }
 
+    @Override
+    public void close() throws IOException {
+        fc.close();
+    }
 }
