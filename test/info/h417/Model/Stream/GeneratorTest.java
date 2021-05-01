@@ -56,10 +56,16 @@ class GeneratorTest {
         Test2(new OneBufferGenerator(sizeBuffer));
     }
 
+    @Test
+    public void Mmap() throws IOException {
+        int nbCharacter = 5;
+        Test(new MmapGenerator(nbCharacter));
+    }
 
     public void Test(Generator generator) throws IOException {
         String filename = "Files/text2.txt";
         BaseOutputStream outputStream = generator.getOutputStream(filename);
+
         System.out.println("TEST CREATE");
         outputStream.create();
         assertTrue(new File(filename).exists());
