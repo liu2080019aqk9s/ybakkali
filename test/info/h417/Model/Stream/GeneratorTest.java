@@ -13,12 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeneratorTest {
 
-    @Test
-    public void Mmap() throws IOException {
-        int nbCharacter = 5;
-        Test(new MmapGenerator(nbCharacter));
-        Test2(new MmapGenerator(nbCharacter));
-    }
 
     @Test
     public void Mmap2() throws IOException {
