@@ -11,6 +11,7 @@ public class MmapOutputStream extends BaseOutputStream {
     private int nbCharacters;
     private MappedByteBuffer buffer;
     private FileChannel fc;
+    private RandomAccessFile rw;
 
     /**
      * Constructor of an outputStream that write by mapping and unmapping
@@ -29,7 +30,8 @@ public class MmapOutputStream extends BaseOutputStream {
     public void create() throws IOException {
         super.create();
         super.close();
-        fc = new RandomAccessFile(filename, "rw").getChannel();
+        rw = new RandomAccessFile(filename, "rw");
+        fc = rw.getChannel();
     }
 
     @Override
@@ -63,6 +65,6 @@ public class MmapOutputStream extends BaseOutputStream {
 
     @Override
     public void close() throws IOException {
-        fc.close();
+        rw.close();
     }
 }

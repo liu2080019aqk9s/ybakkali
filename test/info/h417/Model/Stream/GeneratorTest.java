@@ -54,6 +54,7 @@ class GeneratorTest {
     public void Mmap() throws IOException {
         int nbCharacter = 5;
         Test(new MmapGenerator(nbCharacter));
+        Test2(new MmapGenerator(nbCharacter));
     }
 
     public void Test(Generator generator) throws IOException {

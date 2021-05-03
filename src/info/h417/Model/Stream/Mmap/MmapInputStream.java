@@ -32,7 +32,9 @@ public class MmapInputStream extends BaseInputStream {
     @Override
     public void open() throws IOException {
         //super.open();
-        fc = new RandomAccessFile(filename, "r").getChannel();
+        if(fc == null){
+            fc = new RandomAccessFile(filename, "r").getChannel();
+        }
     }
 
     @Override
