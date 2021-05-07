@@ -16,7 +16,7 @@ class GeneratorTest {
 
     @Test
     public void Mmap2() throws IOException {
-        Generator generator = new MmapGenerator(2);
+        Generator generator = new OneBufferGenerator(2);
         assertNotNull(generator);
         BaseInputStream baseInputStream = generator.getInputStream("Files/file.txt");
         assertNotNull(baseInputStream);
@@ -27,7 +27,7 @@ class GeneratorTest {
         assertEquals("bbbbbb", baseInputStream.readln());
         assertEquals("cccccc", baseInputStream.readln());
         assertEquals("dddddd", baseInputStream.readln());
-        assertEquals("àààààà", baseInputStream.readln());
+        assertEquals("óóóóóó", baseInputStream.readln());
         baseInputStream.close();
     }
 
@@ -68,7 +68,7 @@ class GeneratorTest {
         String text =  "Bonjour Le monde";
         System.out.println("TEST WRITE");
 
-        String text2 =  "On se trouve à la seconde ligne"; //Test fonction
+        String text2 =  "On se trouve ó la seconde ligne"; //Test fonction
         outputStream.writeln(text);
         outputStream.writeln(text2);
         outputStream.close();
@@ -105,7 +105,7 @@ class GeneratorTest {
         String text =  "Bonjour Le monde";
         System.out.println("TEST WRITE");
 
-        String text2 =  "On se trouve à la seconde ligne"; //Test fonction
+        String text2 =  "On se trouve ó la seconde ligne"; //Test fonction
         String text3 = "aaaaaaaaaaaaaaaaaaaaaaaaaaa";
         String text4 = "aaaaaaaeeeeeeeeeeaaaaaaaaa";
         outputStream.writeln(text);
