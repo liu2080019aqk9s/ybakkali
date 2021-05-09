@@ -16,7 +16,7 @@ class GeneratorTest {
 
     @Test
     public void Mmap2() throws IOException {
-        Generator generator = new OneBufferGenerator(2);
+        Generator generator = new MmapGenerator(2);
         assertNotNull(generator);
         BaseInputStream baseInputStream = generator.getInputStream("Files/file.txt");
         assertNotNull(baseInputStream);

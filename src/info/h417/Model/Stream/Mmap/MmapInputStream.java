@@ -5,8 +5,10 @@ import info.h417.Model.Stream.BaseInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
@@ -14,6 +16,7 @@ import java.nio.file.StandardOpenOption;
 public class MmapInputStream extends BaseInputStream {
     private int nbCharacters;
     private MappedByteBuffer buffer;
+    private CharBuffer charBuffer = null;
     private FileChannel fc;
 
     /**
@@ -54,9 +57,10 @@ public class MmapInputStream extends BaseInputStream {
         while(!end_of_stream() && loop){
             long n = (fc.position() + nbCharacters <= fc.size()) ? this.nbCharacters : fc.size() - fc.position();
             buffer = fc.map(FileChannel.MapMode.READ_ONLY, fc.position(), n);
+            charBuffer = Charset.forName("UTF-8").decode(buffer);
             long newPosition = fc.position() ;
-            for (int i = 0; i < buffer.limit(); i++) {
-                char character = (char) (buffer.get() & 0xFF);
+            for (int i = 0; i < charBuffer.limit(); i++) {
+                char character = charBuffer.get();
                 if(character  == '\n' ||  character == '\r') {
                     loop = false;
                     newPosition += 1;
