@@ -2,14 +2,10 @@ package info.h417.Model.Stream.OneBuffer;
 
 import info.h417.Model.Stream.BaseInputStream;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class OneBufferInputStream extends BaseInputStream {
-    private char[] buffer;
-    private BufferedReader bufferedReader;
+    private byte[] buffer;
 
     /**
      * Basic Constructor of an inputStream that reads sizeBuffer character in a buffer
@@ -19,7 +15,7 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     public OneBufferInputStream(String filename,int sizeBuffer) {
         super(filename);
-        this.buffer = new char[sizeBuffer];
+        this.buffer = new byte[sizeBuffer];
     }
 
     @Override
@@ -28,46 +24,20 @@ public class OneBufferInputStream extends BaseInputStream {
         long i = 0;
         String text = "";
         while(i != -1 && !end_of_stream()){
-            bufferedReader.read(buffer);
+            in.read(buffer);
             for(int j = 0; j < buffer.length; j++){
                 i++;
-                if(buffer[j] == '\n' || buffer[j] == '\r'){
-                    seek(current + i +1 );
+                if(buffer[j] == '\n'){
+                    seek(current + i);
                     i = -1;
                     break;
                 }
                 else{
-                    text +=  buffer[j];
+                    text += (char) (buffer[j ] & 0xff);
                 }
             }
-
         }
 
         return text;
-    }
-
-    @Override
-    public void open() throws IOException {
-        super.open();
-        if(bufferedReader == null){
-            bufferedReader = new BufferedReader(new InputStreamReader(in));
-        }
-    }
-
-    @Override
-    public void seek(long pos) throws IOException {
-        super.seek(pos);
-        bufferedReader = new BufferedReader(new InputStreamReader(in));
-    }
-
-    @Override
-    public void close() throws IOException {
-        bufferedReader.close();
-    }
-
-
-    @Override
-    public boolean end_of_stream() throws IOException {
-        return !bufferedReader.ready();
     }
 }
