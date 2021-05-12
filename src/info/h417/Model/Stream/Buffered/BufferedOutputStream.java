@@ -26,8 +26,7 @@ public class BufferedOutputStream extends BaseOutputStream {
 
     @Override
     public void writeln(String text) throws IOException {
-        bufferedWriter.write(text);
-        bufferedWriter.newLine();
+        bufferedWriter.write(text + "\n");
 
         bufferedWriter.flush(); // Marche sans si on close le fichier
     }

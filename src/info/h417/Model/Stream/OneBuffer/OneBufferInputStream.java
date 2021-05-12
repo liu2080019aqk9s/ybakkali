@@ -2,7 +2,10 @@ package info.h417.Model.Stream.OneBuffer;
 
 import info.h417.Model.Stream.BaseInputStream;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 public class OneBufferInputStream extends BaseInputStream {
     private byte[] buffer;
@@ -22,21 +25,25 @@ public class OneBufferInputStream extends BaseInputStream {
     public String readln() throws IOException {
         long current = in.getChannel().position();
         long i = 0;
+        int size = 0;
         String text = "";
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
         while(i != -1 && !end_of_stream()){
             in.read(buffer);
+            size = 0;
             for(int j = 0; j < buffer.length; j++){
-                i++;
-                if(buffer[j] == '\n'){
-                    seek(current + i);
+                if(buffer[j] == '\n' ) {
+                    seek(current + i + 1);
                     i = -1;
                     break;
                 }
-                else{
-                    text += (char) (buffer[j ] & 0xff);
-                }
+                size++;
+                i++;
             }
+            output.write(buffer,0,size);
         }
+        text += StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray() )).toString();
+        output.close();
 
         return text;
     }

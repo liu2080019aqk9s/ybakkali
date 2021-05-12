@@ -1,9 +1,12 @@
 package info.h417.Model.Stream.OneBuffer;
 
 import info.h417.Model.Stream.BaseOutputStream;
+import org.junit.platform.commons.util.StringUtils;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+
 
 public class OneBufferOutputStream extends BaseOutputStream {
 
@@ -23,14 +26,16 @@ public class OneBufferOutputStream extends BaseOutputStream {
     @Override
     public void writeln(String text) throws IOException {
         int i = 0;
-        for(char character : text.toCharArray()){
-            buffer[i] = (byte) ( character) ;
+        //ByteBuffer bytesText = StandardCharsets.UTF_8.encode(text);
+        for(byte character :  text.getBytes(StandardCharsets.UTF_8)){
+            buffer[i] =   character;
 
             if(i == buffer.length -1){
                 out.write(buffer);
             }
             i = (i + 1)%buffer.length;
         }
+
         buffer[i] = '\n';
         out.write(buffer,0,i+1);
     }
