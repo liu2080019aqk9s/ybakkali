@@ -3,6 +3,7 @@ package info.h417.Model.Stream.One;
 import info.h417.Model.Stream.BaseOutputStream;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class OneOutputStream extends BaseOutputStream {
 
@@ -19,9 +20,9 @@ public class OneOutputStream extends BaseOutputStream {
 
     @Override
     public void writeln(String text) throws IOException {
-        for(char character : text.toCharArray()){
+        for(byte character : text.getBytes(StandardCharsets.UTF_8)){
             out.write(character);
         }
-        out.write('\n');
+        out.write((byte)'\n');
     }
 }

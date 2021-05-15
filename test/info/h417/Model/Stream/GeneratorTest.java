@@ -17,19 +17,10 @@ class GeneratorTest {
     @Test
     public void Mmap2() throws IOException {
         Generator generator = new MmapGenerator(2);
-        assertNotNull(generator);
-        BaseInputStream baseInputStream = generator.getInputStream("Files/file.txt");
-        assertNotNull(baseInputStream);
-
-        baseInputStream.open();
-
-        assertEquals("aaaaaa", baseInputStream.readln());
-        assertEquals("bbbbbb", baseInputStream.readln());
-        assertEquals("cccccc", baseInputStream.readln());
-        assertEquals("dddddd", baseInputStream.readln());
-        assertEquals("óóóóóó", baseInputStream.readln());
-        baseInputStream.close();
+        testFile(generator);
     }
+
+
 
     @Test
     public void Buffered() throws IOException {
@@ -59,7 +50,8 @@ class GeneratorTest {
 
     public void Test(Generator generator) throws IOException {
         String filename = "Files/text2.txt";
-        BaseOutputStream outputStream = generator.getOutputStream(filename);
+        //BaseOutputStream outputStream = generator.getOutputStream(filename);
+        BaseOutputStream outputStream = new BufferedGenerator().getOutputStream(filename);
 
         System.out.println("TEST CREATE");
         outputStream.create();
@@ -148,5 +140,17 @@ class GeneratorTest {
         inputStream.close();
 
         //new File(filename).delete();
+    }
+
+    private void testFile(Generator generator) throws IOException {
+        assertNotNull(generator);
+        BaseInputStream baseInputStream = generator.getInputStream("Files/imdb/aka_title.csv");
+        assertNotNull(baseInputStream);
+
+        baseInputStream.open();
+
+        assertEquals("13117,833595,Malhação - Adolescência: A Passagem da Infância Para a Vida Adulta,,2,2011,M4342,,,,(Brazil) (nineteenth season title),320b4fa8ae74411e55cde509d9883e9c", baseInputStream.readln());
+        assertEquals("6017,393076,Dirty Pair,,2,1985,D6316,,,,(USA),f77196370d0815fd72eb57ea2896c0e3", baseInputStream.readln());
+        baseInputStream.close();
     }
 }

@@ -3,6 +3,8 @@ package info.h417.Model.Stream.One;
 import info.h417.Model.Stream.BaseInputStream;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 public class OneInputStream extends BaseInputStream {
 
@@ -18,11 +20,16 @@ public class OneInputStream extends BaseInputStream {
     @Override
     public String readln() throws IOException {
         String temp = "";
-        char character =  (char) in.read();
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        int character =  in.read();
         while( character != '\n' && !end_of_stream()){
-            temp += character;
-            character = (char) in.read();
+            output.write(character);
+            character = in.read();
         }
+        temp += StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray() )).toString();
+        output.close();
+
         return temp;
     }
 
