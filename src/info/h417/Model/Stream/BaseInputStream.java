@@ -50,4 +50,11 @@ public abstract class BaseInputStream extends BaseStream {
     public boolean end_of_stream() throws IOException {
         return in.available() == 0;
     }
+
+    /**
+     * This function return the size of the file
+     */
+    public long sizeFile() throws IOException {
+        return in.getChannel().size();
+    }
 }
