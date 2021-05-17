@@ -7,6 +7,7 @@ import java.io.RandomAccessFile;
 import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 
 public class MmapOutputStream extends BaseOutputStream {
     private int nbCharacters;
@@ -39,23 +40,26 @@ public class MmapOutputStream extends BaseOutputStream {
     public void writeln(String text) throws IOException {
         int i = 0;
         boolean loop = true;
-        char character;
+        byte character;
         long size = nbCharacters;
+        byte[] bText = text.getBytes(StandardCharsets.UTF_8);
         while(loop){
-            if(text.length() - i < nbCharacters +1){
-                size = text.length() - i + 1;
+
+            if(bText.length - i < nbCharacters +1){
+                size = bText.length - i + 1;
                 loop = false;
             }
+
             buffer = fc.map(FileChannel.MapMode.READ_WRITE, fc.position(),  size  );
             long newPosition = fc.position();
             for( int j = 0; j < size; j++){
-                if(i < text.length()){
-                    character = text.charAt(i);
+                if(i < bText.length){
+                    character = bText[i];
                 }
                 else{
                     character = '\n';
                 }
-                buffer.put((byte) ( character) );
+                buffer.put( character);
                 i++;
                 newPosition++;
             }
@@ -67,5 +71,6 @@ public class MmapOutputStream extends BaseOutputStream {
     @Override
     public void close() throws IOException {
         rw.close();
+        fc.close();
     }
 }
