@@ -24,28 +24,36 @@ class GeneratorTest {
 
     @Test
     public void Buffered() throws IOException {
-        Test(new BufferedGenerator());
-        Test2(new BufferedGenerator());
+        BufferedGenerator generator = new BufferedGenerator();
+        Test(generator);
+        Test2(generator);
+        testFile(generator);
     }
 
     @Test
     public void One() throws IOException {
-        Test(new OneGenerator());
-        Test2(new OneGenerator());
+        OneGenerator generator = new OneGenerator();
+        Test(generator);
+        Test2(generator);
+        testFile(generator);
     }
 
     @Test
     public void OneBuffer() throws IOException {
         int sizeBuffer = 5;
-        Test(new OneBufferGenerator(sizeBuffer));
-        Test2(new OneBufferGenerator(sizeBuffer));
+        OneBufferGenerator generator = new OneBufferGenerator(sizeBuffer);
+        Test(generator);
+        Test2(generator);
+        testFile(generator);
     }
 
     @Test
     public void Mmap() throws IOException {
         int nbCharacter = 5;
-        Test(new MmapGenerator(nbCharacter));
-        Test2(new MmapGenerator(nbCharacter));
+        MmapGenerator generator = new MmapGenerator(nbCharacter);
+        Test(generator);
+        Test2(generator);
+        testFile(generator);
     }
 
     public void Test(Generator generator) throws IOException {
@@ -88,7 +96,7 @@ class GeneratorTest {
         //new File(filename).delete();
     }
     public void Test2(Generator generator) throws IOException {
-        String filename = "Files/text2.txt";
+        String filename = "Files/text3.txt";
         BaseOutputStream outputStream = generator.getOutputStream(filename);
         System.out.println("TEST CREATE");
         outputStream.create();
