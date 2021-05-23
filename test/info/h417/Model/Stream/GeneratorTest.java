@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,10 +57,27 @@ class GeneratorTest {
         testFile(generator);
     }
 
+    @Test
+    public void Pair() throws IOException {
+        int nbCharacter = 5;
+        int sizeBuffer = 5;
+        ArrayList<Generator> t =  new ArrayList<>();
+        t.add(new MmapGenerator(nbCharacter));
+        t.add(new OneBufferGenerator(sizeBuffer));
+        t.add( new OneGenerator());
+        t.add( new BufferedGenerator());
+
+        for(int i = 0; i < t.size() ; i++){
+            for(int j = 0; j < i ; j++){
+                Test4(t.get(i),t.get(j) , i + "-" + j);
+                Test4(t.get(j),t.get(i) , j + "-" + i);
+            }
+        }
+    }
+
     public void Test(Generator generator) throws IOException {
         String filename = "Files/text2.txt";
-        //BaseOutputStream outputStream = generator.getOutputStream(filename);
-        BaseOutputStream outputStream = new BufferedGenerator().getOutputStream(filename);
+        BaseOutputStream outputStream = generator.getOutputStream(filename);
 
         System.out.println("TEST CREATE");
         outputStream.create();
@@ -95,6 +113,62 @@ class GeneratorTest {
 
         //new File(filename).delete();
     }
+
+    public void Test4(Generator generator,Generator writeGenerator,String name) throws IOException {
+        String filename = "Files/"+ name + ".txt";
+        BaseOutputStream outputStream = writeGenerator.getOutputStream(filename);
+        System.out.println("TEST CREATE");
+        outputStream.create();
+        assertTrue(new File(filename).exists());
+
+        String text =  "Bonjour Le monde";
+        System.out.println("TEST WRITE");
+
+        String text2 =  "On se trouve ó la seconde ligne"; //Test fonction
+        String text3 = "aaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        String text4 = "aaaaaaaeeeeeeeeeeaaaaaaaaa";
+        outputStream.writeln(text);
+        outputStream.writeln(text2);
+        outputStream.writeln(text3);
+        outputStream.writeln(text4);
+        outputStream.writeln(text3);
+        outputStream.writeln(text4);
+        outputStream.writeln(text3);
+        outputStream.writeln(text4);
+        outputStream.close();
+
+        BaseInputStream inputStream = generator.getInputStream(filename);
+        inputStream.open();
+
+        System.out.println("TEST END OF STREAM EQUAL FALSE");
+        assertFalse(inputStream.end_of_stream());
+        System.out.println("Test seek with 8 of decal");
+        inputStream.seek(8);
+
+        System.out.println("Test WRITE And READ");
+        String exceptedText = "Le monde";
+        text = inputStream.readln();
+        assertEquals(exceptedText,text);
+
+        text = inputStream.readln();
+
+        assertEquals(text2,text);
+
+        text = inputStream.readln();
+        assertEquals(text3,text);
+
+        text = inputStream.readln();
+        assertEquals(text4,text);
+
+        text = inputStream.readln();
+        assertEquals(text3,text);
+        System.out.println("TEST END OF STREAM EQUAL False");
+        assertFalse(inputStream.end_of_stream());
+        inputStream.close();
+
+        new File(filename).delete();
+    }
+
     public void Test2(Generator generator) throws IOException {
         String filename = "Files/text3.txt";
         BaseOutputStream outputStream = generator.getOutputStream(filename);
