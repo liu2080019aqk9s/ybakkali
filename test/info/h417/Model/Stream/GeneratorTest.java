@@ -1,5 +1,6 @@
 package info.h417.Model.Stream;
 
+import info.h417.Model.Algo.RRMerge;
 import info.h417.Model.Stream.Buffered.BufferedGenerator;
 import info.h417.Model.Stream.Mmap.MmapGenerator;
 import info.h417.Model.Stream.One.OneGenerator;
@@ -74,6 +75,52 @@ class GeneratorTest {
             }
         }
     }
+
+    @Test
+    public void RRMerge() throws IOException {
+        Generator generatorReader = new OneBufferGenerator(42);
+        Generator generatorWriter = new OneBufferGenerator(42);
+        RRMerge rrMerge = new RRMerge(generatorReader, generatorWriter);
+        rrMerge.begin("Files/file1.txt", "Files/file2.txt", "Files/file3.txt", "Files/file4.txt", "Files/file5.txt");
+
+        Generator generatorFile = new OneGenerator();
+        BaseInputStream inputStream = generatorFile.getInputStream("RRMergeOutput.csv");
+        inputStream.open();
+
+        String outputFile = "aaaaaa\n" +
+                            "bbbbbb\n" +
+                            "cccccc\n" +
+                            "dddddd\n" +
+                            "eeeeee\n" +
+                            "ffffff\n" +
+                            "gggggg\n" +
+                            "hhhhhh\n" +
+                            "iiiiii\n" +
+                            "jjjjjj\n" +
+                            "kkkkkk\n" +
+                            "llllll\n" +
+                            "mmmmmm\n" +
+                            "nnnnnn\n" +
+                            "oooooo\n" +
+                            "pppppp\n" +
+                            "qqqqqq\n" +
+                            "rrrrrr\n" +
+                            "ssssss\n" +
+                            "tttttt\n" +
+                            "uuuuuu\n" +
+                            "vvvvvv\n" +
+                            "wwwwww\n" +
+                            "xxxxxx\n" +
+                            "yyyyyy\n" +
+                            "zzzzzz";
+        String[] outputFileLines = outputFile.split("\n");
+
+        for (String line : outputFileLines) {
+            assertEquals(line, inputStream.readln());
+        }
+        assertTrue(inputStream.end_of_stream());
+    }
+
 
     public void Test(Generator generator) throws IOException {
         String filename = "Files/text2.txt";

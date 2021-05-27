@@ -7,6 +7,7 @@ import info.h417.Model.Stream.Generator;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RRMerge extends BaseAlgo{
 
@@ -33,9 +34,19 @@ public class RRMerge extends BaseAlgo{
         BaseOutputStream outputStream =  writeGenerator.getOutputStream(outputString);
         outputStream.create();
 
-        // Merge les fichiers avec ROUND ROBIN
+        List<BaseInputStream> activeInputStreams = new ArrayList<>(inputStreams);
 
-
+        while (!activeInputStreams.isEmpty()) {
+            for (int i = 0; i < activeInputStreams.size(); i++) {
+                BaseInputStream inputStream = activeInputStreams.get(i);
+                if (inputStream.end_of_stream()) {
+                    activeInputStreams.remove(i);
+                    i--;
+                } else {
+                    outputStream.writeln(inputStream.readln());
+                }
+            }
+        }
 
         outputStream.close();
         for (BaseInputStream inputStream : inputStreams){
