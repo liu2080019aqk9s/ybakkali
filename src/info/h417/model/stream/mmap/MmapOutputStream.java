@@ -1,16 +1,15 @@
-package info.h417.Model.Stream.Mmap;
+package info.h417.model.stream.mmap;
 
-import info.h417.Model.Stream.BaseOutputStream;
+import info.h417.model.stream.BaseOutputStream;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 
 public class MmapOutputStream extends BaseOutputStream {
-    private int nbCharacters;
+    private final int nbCharacters;
     private MappedByteBuffer buffer;
     private FileChannel fc;
     private RandomAccessFile rw;

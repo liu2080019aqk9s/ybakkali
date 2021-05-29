@@ -1,7 +1,7 @@
-package info.h417.Model.Stream.One;
-import info.h417.Model.Stream.BaseInputStream;
-import info.h417.Model.Stream.BaseOutputStream;
-import info.h417.Model.Stream.Generator;
+package info.h417.model.stream.one;
+import info.h417.model.stream.BaseInputStream;
+import info.h417.model.stream.BaseOutputStream;
+import info.h417.model.stream.Generator;
 
 public class OneGenerator extends Generator{
 

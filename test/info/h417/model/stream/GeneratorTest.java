@@ -1,10 +1,10 @@
-package info.h417.Model.Stream;
+package info.h417.model.stream;
 
-import info.h417.Model.Algo.RRMerge;
-import info.h417.Model.Stream.Buffered.BufferedGenerator;
-import info.h417.Model.Stream.Mmap.MmapGenerator;
-import info.h417.Model.Stream.One.OneGenerator;
-import info.h417.Model.Stream.OneBuffer.OneBufferGenerator;
+import info.h417.model.algo.RRMerge;
+import info.h417.model.stream.buffered.BufferedGenerator;
+import info.h417.model.stream.mmap.MmapGenerator;
+import info.h417.model.stream.one.OneGenerator;
+import info.h417.model.stream.oneBuffer.OneBufferGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

@@ -1,8 +1,10 @@
-package info.h417.Model.Stream.Buffered;
+package info.h417.model.stream.buffered;
 
-import info.h417.Model.Stream.BaseInputStream;
+import info.h417.model.stream.BaseInputStream;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class BufferedInputStream extends BaseInputStream {
     private BufferedReader bufferedReader;

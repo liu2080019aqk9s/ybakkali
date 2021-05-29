@@ -1,6 +1,6 @@
-package info.h417.Model.Stream.One;
+package info.h417.model.stream.one;
 
-import info.h417.Model.Stream.BaseOutputStream;
+import info.h417.model.stream.BaseOutputStream;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

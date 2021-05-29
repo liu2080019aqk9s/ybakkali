@@ -1,6 +1,6 @@
-package info.h417.Model.Stream.OneBuffer;
+package info.h417.model.stream.oneBuffer;
 
-import info.h417.Model.Stream.BaseInputStream;
+import info.h417.model.stream.BaseInputStream;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,14 +25,14 @@ public class OneBufferInputStream extends BaseInputStream {
     public String readln() throws IOException {
         long current = in.getChannel().position();
         long i = 0;
-        int size = 0;
+        int size;
         String text = "";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         while(i != -1 && !end_of_stream()){
             in.read(buffer);
             size = 0;
-            for(int j = 0; j < buffer.length; j++){
-                if(buffer[j] == '\n' ) {
+            for (byte b : buffer) {
+                if (b == '\n') {
                     seek(current + i + 1);
                     i = -1;
                     break;

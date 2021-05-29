@@ -1,4 +1,4 @@
-package info.h417.Model.Stream;
+package info.h417.model.stream;
 
 
 public abstract class Generator {

@@ -1,9 +1,9 @@
-package info.h417.Model.Algo;
+package info.h417.model.algo;
 
 
-import info.h417.Model.Stream.BaseInputStream;
-import info.h417.Model.Stream.BaseOutputStream;
-import info.h417.Model.Stream.Generator;
+import info.h417.model.stream.BaseInputStream;
+import info.h417.model.stream.BaseOutputStream;
+import info.h417.model.stream.Generator;
 
 import java.io.IOException;
 import java.util.ArrayList;

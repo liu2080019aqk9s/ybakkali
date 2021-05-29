@@ -1,10 +1,8 @@
-package info.h417.Model.Stream.Buffered;
+package info.h417.model.stream.buffered;
 
-import info.h417.Model.Stream.BaseInputStream;
-import info.h417.Model.Stream.BaseOutputStream;
-import info.h417.Model.Stream.Generator;
-
-import java.io.FileNotFoundException;
+import info.h417.model.stream.BaseInputStream;
+import info.h417.model.stream.BaseOutputStream;
+import info.h417.model.stream.Generator;
 
 public class BufferedGenerator extends Generator {
 

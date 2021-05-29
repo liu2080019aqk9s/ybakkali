@@ -1,23 +1,18 @@
-package info.h417.Model.Stream.Mmap;
+package info.h417.model.stream.mmap;
 
-import info.h417.Model.Stream.BaseInputStream;
+import info.h417.model.stream.BaseInputStream;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 
 public class MmapInputStream extends BaseInputStream {
-    private int nbCharacters;
+    private final int nbCharacters;
     private MappedByteBuffer buffer;
     private FileChannel fc;
     private RandomAccessFile r;

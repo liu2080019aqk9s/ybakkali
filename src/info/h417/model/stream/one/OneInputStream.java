@@ -1,8 +1,9 @@
-package info.h417.Model.Stream.One;
+package info.h417.model.stream.one;
 
-import info.h417.Model.Stream.BaseInputStream;
+import info.h417.model.stream.BaseInputStream;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 

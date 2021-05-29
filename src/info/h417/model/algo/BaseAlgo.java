@@ -1,7 +1,7 @@
-package info.h417.Model.Algo;
+package info.h417.model.algo;
 
 
-import info.h417.Model.Stream.Generator;
+import info.h417.model.stream.Generator;
 
 public class BaseAlgo {
     protected Generator generator;

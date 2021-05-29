@@ -1,10 +1,10 @@
-package info.h417.Model.Stream.Mmap;
-import info.h417.Model.Stream.BaseInputStream;
-import info.h417.Model.Stream.BaseOutputStream;
-import info.h417.Model.Stream.Generator;
+package info.h417.model.stream.mmap;
+import info.h417.model.stream.BaseInputStream;
+import info.h417.model.stream.BaseOutputStream;
+import info.h417.model.stream.Generator;
 
 public class MmapGenerator extends Generator{
-    private int nbCharacters;
+    private final int nbCharacters;
 
     public MmapGenerator(int nbCharacters) {
         this.nbCharacters = nbCharacters;

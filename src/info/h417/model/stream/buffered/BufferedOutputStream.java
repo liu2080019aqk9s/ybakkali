@@ -1,8 +1,10 @@
-package info.h417.Model.Stream.Buffered;
+package info.h417.model.stream.buffered;
 
-import info.h417.Model.Stream.BaseOutputStream;
+import info.h417.model.stream.BaseOutputStream;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class BufferedOutputStream extends BaseOutputStream {
     private BufferedWriter bufferedWriter;

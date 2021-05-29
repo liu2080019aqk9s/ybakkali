@@ -1,11 +1,11 @@
-package info.h417.Model.Stream.OneBuffer;
+package info.h417.model.stream.oneBuffer;
 
-import info.h417.Model.Stream.BaseInputStream;
-import info.h417.Model.Stream.BaseOutputStream;
-import info.h417.Model.Stream.Generator;
+import info.h417.model.stream.BaseInputStream;
+import info.h417.model.stream.BaseOutputStream;
+import info.h417.model.stream.Generator;
 
 public class OneBufferGenerator extends Generator {
-    private int sizeBuffer;
+    private final int sizeBuffer;
 
 
     public OneBufferGenerator(int sizeBuffer) {

@@ -1,6 +1,7 @@
-package info.h417.Model.Stream;
+package info.h417.model.stream;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public abstract class BaseInputStream extends BaseStream {
     protected FileInputStream in;

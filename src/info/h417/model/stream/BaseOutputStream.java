@@ -1,7 +1,5 @@
-package info.h417.Model.Stream;
+package info.h417.model.stream;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
