@@ -1,9 +1,11 @@
 package info.h417.model.stream;
 
+import info.h417.model.algo.ExtSort;
 import info.h417.model.algo.RRMerge;
 import info.h417.model.stream.buffered.BufferedGenerator;
 import info.h417.model.stream.mmap.MmapGenerator;
 import info.h417.model.stream.one.OneGenerator;
+import info.h417.model.stream.one.OneInputStream;
 import info.h417.model.stream.oneBuffer.OneBufferGenerator;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GeneratorTest {
-
+    String baseResourcesPath = "test/resources/";
 
     @Test
     public void Mmap2() throws IOException {
@@ -81,49 +83,44 @@ class GeneratorTest {
         Generator generatorReader = new OneBufferGenerator(42);
         Generator generatorWriter = new OneBufferGenerator(42);
         RRMerge rrMerge = new RRMerge(generatorReader, generatorWriter);
-        rrMerge.begin("Files/file1.txt", "Files/file2.txt", "Files/file3.txt", "Files/file4.txt", "Files/file5.txt");
+        String partsPath = this.baseResourcesPath + "RRMergeExamplePart";
+        rrMerge.begin(partsPath + "1.csv", partsPath + "2.csv", partsPath + "3.csv", partsPath + "4.csv", partsPath + "5.csv");
 
-        Generator generatorFile = new OneGenerator();
-        BaseInputStream inputStream = generatorFile.getInputStream("RRMergeOutput.csv");
-        inputStream.open();
 
-        String outputFile = "aaaaaa\n" +
-                            "bbbbbb\n" +
-                            "cccccc\n" +
-                            "dddddd\n" +
-                            "eeeeee\n" +
-                            "ffffff\n" +
-                            "gggggg\n" +
-                            "hhhhhh\n" +
-                            "iiiiii\n" +
-                            "jjjjjj\n" +
-                            "kkkkkk\n" +
-                            "llllll\n" +
-                            "mmmmmm\n" +
-                            "nnnnnn\n" +
-                            "oooooo\n" +
-                            "pppppp\n" +
-                            "qqqqqq\n" +
-                            "rrrrrr\n" +
-                            "ssssss\n" +
-                            "tttttt\n" +
-                            "uuuuuu\n" +
-                            "vvvvvv\n" +
-                            "wwwwww\n" +
-                            "xxxxxx\n" +
-                            "yyyyyy\n" +
-                            "zzzzzz";
-        String[] outputFileLines = outputFile.split("\n");
+        BaseInputStream actualInputStream = new OneInputStream("RRMergeOutput.csv");
+        actualInputStream.open();
+        BaseInputStream expectedInputStream = new OneInputStream(this.baseResourcesPath + "RRMergeExpectedOutput.csv");
+        expectedInputStream.open();
 
-        for (String line : outputFileLines) {
-            assertEquals(line, inputStream.readln());
+        while (!expectedInputStream.end_of_stream()) {
+            assertEquals(expectedInputStream.readln(), actualInputStream.readln());
         }
-        assertTrue(inputStream.end_of_stream());
+        assertTrue(actualInputStream.end_of_stream());
+
+    }
+
+    @Test
+    public void ExtSort() throws IOException {
+        Generator generatorReader = new OneBufferGenerator(42);
+        Generator generatorWriter = new OneBufferGenerator(42);
+        ExtSort extSort = new ExtSort(generatorReader, generatorWriter);
+        extSort.begin(this.baseResourcesPath + "ExtSortExample.csv", 2, 10, 2);
+
+        BaseInputStream actualInputStream = new OneInputStream("ExtSortOutput.csv");
+        actualInputStream.open();
+        BaseInputStream expectedInputStream = new OneInputStream(this.baseResourcesPath + "ExtSortExpectedOutput.csv");
+
+        expectedInputStream.open();
+
+        while (!expectedInputStream.end_of_stream()) {
+            assertEquals(expectedInputStream.readln(), actualInputStream.readln());
+        }
+        assertTrue(actualInputStream.end_of_stream());
     }
 
 
     public void Test(Generator generator) throws IOException {
-        String filename = "Files/text2.txt";
+        String filename = baseResourcesPath + "text2.txt";
         BaseOutputStream outputStream = generator.getOutputStream(filename);
 
         System.out.println("TEST CREATE");
@@ -162,7 +159,7 @@ class GeneratorTest {
     }
 
     public void Test4(Generator generator,Generator writeGenerator,String name) throws IOException {
-        String filename = "Files/"+ name + ".txt";
+        String filename = baseResourcesPath + name + ".txt";
         BaseOutputStream outputStream = writeGenerator.getOutputStream(filename);
         System.out.println("TEST CREATE");
         outputStream.create();
@@ -217,7 +214,7 @@ class GeneratorTest {
     }
 
     public void Test2(Generator generator) throws IOException {
-        String filename = "Files/text3.txt";
+        String filename = baseResourcesPath + "text3.txt";
         BaseOutputStream outputStream = generator.getOutputStream(filename);
         System.out.println("TEST CREATE");
         outputStream.create();
@@ -273,7 +270,7 @@ class GeneratorTest {
 
     private void testFile(Generator generator) throws IOException {
         assertNotNull(generator);
-        BaseInputStream baseInputStream = generator.getInputStream("Files/imdb/aka_title.csv");
+        BaseInputStream baseInputStream = generator.getInputStream("database/imdb/aka_title.csv");
         assertNotNull(baseInputStream);
 
         baseInputStream.open();
