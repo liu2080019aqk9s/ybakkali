@@ -11,14 +11,14 @@ public class Length extends BaseAlgo{
     /**
      * A generic Constructor that takes a generator as parameter
      *
-     * @param generator
+     * @param generator The generator
      */
     public Length(Generator generator) {
         super(generator);
     }
 
 
-    public void begin(String filename) throws IOException {
+    public int begin(String filename) throws IOException {
         int sum = 0;
 
         BaseInputStream inputStream = generator.getInputStream(filename);
@@ -28,6 +28,6 @@ public class Length extends BaseAlgo{
         }
         inputStream.close();
 
-        System.out.println("Somme : " + sum);
+        return sum;
     }
 }
