@@ -4,7 +4,6 @@ import info.h417.model.stream.BaseInputStream;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -13,9 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 public class MmapInputStream extends BaseInputStream {
     private final int nbCharacters;
-    private MappedByteBuffer buffer;
     private FileChannel fc;
-    private RandomAccessFile r;
 
     /**
      * Constructor of an inputStream that reads by mapping and unmapping
@@ -32,10 +29,9 @@ public class MmapInputStream extends BaseInputStream {
 
     @Override
     public void open() throws IOException {
-        //super.open();
-        if(fc == null){
-            r = new RandomAccessFile(filename, "r");
-            fc = r.getChannel();
+        super.open();
+        if(in != null){
+            fc = in.getChannel();
         }
     }
 
@@ -56,7 +52,7 @@ public class MmapInputStream extends BaseInputStream {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         while(!end_of_stream() && loop){
             long n = (fc.position() + nbCharacters <= fc.size()) ? this.nbCharacters : fc.size() - fc.position();
-            buffer = fc.map(FileChannel.MapMode.READ_ONLY, fc.position(), n);
+            MappedByteBuffer buffer = fc.map(FileChannel.MapMode.READ_ONLY, fc.position(), n);
             long newPosition = fc.position() ;
             for (int i = 0; i < buffer.limit(); i++) {
                 byte character = buffer.get();
@@ -79,7 +75,6 @@ public class MmapInputStream extends BaseInputStream {
 
     @Override
     public void close() throws IOException {
-        r.close();
         fc.close();
     }
 }

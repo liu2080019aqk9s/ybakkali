@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
 public class OneBufferInputStream extends BaseInputStream {
-    private byte[] buffer;
+    private final byte[] buffer;
 
     /**
      * Basic Constructor of an inputStream that reads sizeBuffer character in a buffer

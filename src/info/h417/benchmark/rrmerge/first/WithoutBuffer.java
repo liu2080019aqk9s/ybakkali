@@ -1,6 +1,5 @@
 package info.h417.benchmark.rrmerge.first;
 
-import info.h417.model.algo.RRMerge;
 import info.h417.model.stream.Generator;
 import org.openjdk.jmh.annotations.*;
 
@@ -16,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 public class WithoutBuffer {
 
-    String path = "database/imdb/";
-    String[] files = {path + "comp_cast_type.csv", path + "kind_type.csv", path + "company_type.csv"};
+    final String path = "database/imdb/";
+    final String[] files = {path + "comp_cast_type.csv", path + "kind_type.csv", path + "company_type.csv"};
 
     @Param({"1","2","3"})
     int filesNumber;

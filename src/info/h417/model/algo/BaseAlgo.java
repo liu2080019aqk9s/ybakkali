@@ -4,7 +4,7 @@ package info.h417.model.algo;
 import info.h417.model.stream.Generator;
 
 public class BaseAlgo {
-    protected Generator generator;
+    protected final Generator generator;
     protected Generator writeGenerator;
     protected String outputString;
 

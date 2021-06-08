@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 
 public class MmapOutputStream extends BaseOutputStream {
     private final int nbCharacters;
-    private MappedByteBuffer buffer;
     private FileChannel fc;
     private RandomAccessFile rw;
 
@@ -49,7 +48,7 @@ public class MmapOutputStream extends BaseOutputStream {
                 loop = false;
             }
 
-            buffer = fc.map(FileChannel.MapMode.READ_WRITE, fc.position(),  size  );
+            MappedByteBuffer buffer = fc.map(FileChannel.MapMode.READ_WRITE, fc.position(), size);
             long newPosition = fc.position();
             for( int j = 0; j < size; j++){
                 if(i < bText.length){

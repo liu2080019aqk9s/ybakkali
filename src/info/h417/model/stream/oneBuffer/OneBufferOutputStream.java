@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 public class OneBufferOutputStream extends BaseOutputStream {
 
-    private byte[] buffer;
+    private final byte[] buffer;
 
     /**
      * Basic Constructor of an outputStream that write sizeBuffer character in a buffer
