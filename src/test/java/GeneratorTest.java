@@ -20,6 +20,30 @@ class GeneratorTest {
     String baseResourcesPath = "src/test/resources/";
 
     @Test
+    public void newOneBuffer() throws IOException {
+        Generator generator = new OneBufferGenerator(1000);
+        BaseInputStream baseInputStream = generator.getInputStream(baseResourcesPath + "file.txt");
+
+        assertNotNull(baseInputStream);
+        baseInputStream.open();
+
+        assertEquals("aaaaaa",baseInputStream.readln());
+        assertEquals("bbbbbb",baseInputStream.readln());
+        assertEquals("cccccc",baseInputStream.readln());
+        assertEquals("dddddd",baseInputStream.readln());
+        assertEquals("óóóóóó",baseInputStream.readln());
+
+        assertTrue(baseInputStream.end_of_stream());
+
+        baseInputStream.seek(0);
+        assertEquals("aaaaaa",baseInputStream.readln());
+        baseInputStream.seek(21);
+        assertEquals("dddddd",baseInputStream.readln());
+
+
+    }
+
+    @Test
     public void Mmap2() throws IOException {
         Generator generator = new MmapGenerator(2);
         testFile(generator);

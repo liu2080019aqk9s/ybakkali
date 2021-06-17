@@ -11,22 +11,24 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.MILLISECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Warmup(iterations = 1, time = 1, timeUnit = TimeUnit.NANOSECONDS)
+@Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.NANOSECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
 public class one {
 
     Generator generator;
 
-    @Param({"comp_cast_type.csv", "info_type.csv", "movie_link.csv", "keyword.csv", "aka_title.csv"})
+    @Param({"comp_cast_type.csv", "kind_type.csv", "company_type.csv", "role_type.csv", "link_type.csv", "info_type.csv",
+            "movie_link.csv", "complete_cast.csv", "keyword.csv", "company_name.csv", "movie_info_idx.csv",
+            "aka_title.csv", "aka_name.csv", "movie_companies.csv", "movie_keyword.csv"})
     String file;
 
     final String path = "database/imdb/";
 
-    final int j = 42;
-
+    @Param({"10", "1000", "10000", "100000"})
+    int j;
 
     @Setup
     public void setup() {
