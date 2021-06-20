@@ -23,6 +23,10 @@ public class RRMerge extends BaseAlgo{
     }
 
 
+    /**
+     * @param fileNames
+     * @throws IOException
+     */
     public void begin(String... fileNames) throws IOException {
         ArrayList<BaseInputStream> inputStreams = new ArrayList<>();
         for(String fileName: fileNames){
@@ -52,8 +56,5 @@ public class RRMerge extends BaseAlgo{
         for (BaseInputStream inputStream : inputStreams){
             inputStream.close();
         }
-
-
     }
-
 }

@@ -31,9 +31,9 @@ public class ExtSort extends BaseAlgo {
         Queue<BaseInputStream> queue = new LinkedList<>();
         List<List<String>> buffer = new ArrayList<>();
 
-        filesInitialisation(k, M, inputStream, tempFilesNames, queue, buffer);
+        filesInitialisation(k - 1, M, inputStream, tempFilesNames, queue, buffer);
 
-        multiWayMerge(k, d, outputStream, tempFilesNames, queue);
+        multiWayMerge(k - 1, d, outputStream, tempFilesNames, queue);
 
         deleteTemporaryFiles(tempFilesNames);
 
@@ -46,11 +46,7 @@ public class ExtSort extends BaseAlgo {
         while (!inputStream.end_of_stream()) {
             String tempLine = inputStream.readln();
             length += tempLine.length();
-            List<String> temp = Arrays.asList(tempLine.split(","));
-            if (temp.size() <= k) {
-                throw new IOException("k bigger than the number of columns"); // TODO maybe change the exception aha ha
-            }
-            buffer.add(temp);
+            buffer.add(Arrays.asList(tempLine.split(",", -1)));
 
             if (length >= M) {
                 String tempFilename = "tempFile" + i;
@@ -120,7 +116,7 @@ public class ExtSort extends BaseAlgo {
             BaseInputStream baseInputStream = toMergeList.get(i);
             baseInputStream.open();
             if (!baseInputStream.end_of_stream()) {
-                current.add(Arrays.asList(baseInputStream.readln().split(",")));
+                current.add(Arrays.asList(baseInputStream.readln().split(",",-1)));
             } else {
                 toMergeList.remove(i);
                 i--;
@@ -131,7 +127,7 @@ public class ExtSort extends BaseAlgo {
             int min = current.indexOf(Collections.min(current, Comparator.comparing(o -> o.get(k))));
             baseOutputStream.writeln(String.join(",", current.remove(min)));
             if (!toMergeList.get(min).end_of_stream()) {
-                current.add(min, Arrays.asList(toMergeList.get(min).readln().split(",")));
+                current.add(min, Arrays.asList(toMergeList.get(min).readln().split(",", -1)));
             } else {
                 toMergeList.get(min).close();
                 toMergeList.remove(min);

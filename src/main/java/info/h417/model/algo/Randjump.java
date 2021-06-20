@@ -5,6 +5,7 @@ import info.h417.model.stream.BaseInputStream;
 import info.h417.model.stream.Generator;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class Randjump extends BaseAlgo{
 
@@ -24,8 +25,10 @@ public class Randjump extends BaseAlgo{
         inputStream.open();
         long size = inputStream.sizeFile();
         long p;
+        Random generator = new Random(15000);
         for(int i = 0; i < j; i++){
-            p = (long)(size * Math.random());
+
+            p = (long)(size * generator.nextDouble());
             inputStream.seek(p);
             sum += inputStream.readln().length();
         }

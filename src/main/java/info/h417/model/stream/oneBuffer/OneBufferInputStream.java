@@ -28,8 +28,8 @@ public class OneBufferInputStream extends BaseInputStream {
         super.open();
         if(in != null){
             this.fc = in.getChannel();
+            getNextElement();
         }
-        getNextElement();
     }
 
     @Override
@@ -45,6 +45,7 @@ public class OneBufferInputStream extends BaseInputStream {
 
     @Override
     public String readln() throws IOException {
+
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         boolean loop = true;
 
@@ -64,6 +65,15 @@ public class OneBufferInputStream extends BaseInputStream {
         return StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray())).toString();
     }
 
+    @Override
+    public void close() throws IOException {
+        super.close();
+        fc.close();
+    }
+
+    /**
+     * @throws IOException
+     */
     private void getNextElement() throws IOException {
         this.buffer.clear();
         fc.read(this.buffer);

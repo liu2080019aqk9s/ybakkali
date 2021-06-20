@@ -9,9 +9,9 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 
-
 public class MmapInputStream extends BaseInputStream {
-    private final int nbCharacters;
+    private int nbCharacters;
+    private MappedByteBuffer buffer;
     private FileChannel fc;
 
     /**
@@ -24,7 +24,6 @@ public class MmapInputStream extends BaseInputStream {
     public MmapInputStream(String filename, int nbCharacters) {
         super(filename);
         this.nbCharacters = nbCharacters;
-
     }
 
     @Override
@@ -32,49 +31,54 @@ public class MmapInputStream extends BaseInputStream {
         super.open();
         if(in != null){
             fc = in.getChannel();
+            getNextElement();
         }
     }
 
     @Override
     public void seek(long pos) throws IOException {
         fc.position(pos);
+        getNextElement();
     }
 
     @Override
     public boolean end_of_stream() throws IOException {
-        return fc.position() >= fc.size();
+        return fc.position() >= fc.size() && !buffer.hasRemaining();
     }
 
     @Override
     public String readln() throws IOException {
-        String text = "";
+
         boolean loop = true;
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        while(!end_of_stream() && loop){
-            long n = (fc.position() + nbCharacters <= fc.size()) ? this.nbCharacters : fc.size() - fc.position();
-            MappedByteBuffer buffer = fc.map(FileChannel.MapMode.READ_ONLY, fc.position(), n);
-            long newPosition = fc.position() ;
-            for (int i = 0; i < buffer.limit(); i++) {
-                byte character = buffer.get();
-                if(character  == '\n' ||  character == '\r') {
-                    loop = false;
-                    newPosition += 1;
-                }
-                if(loop){
-                    output.write(character);
-                    newPosition += 1;
-                }
-            }
-            seek(newPosition);
-        }
-        text += StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray() )).toString();
-        output.close();
 
-        return text;
+        while(!end_of_stream() && loop){
+
+            if (!buffer.hasRemaining()) {
+                getNextElement();
+            }
+
+            byte b = buffer.get();
+            if (b == '\n') {
+                loop = false;
+            } else {
+                output.write(b);
+            }
+            output.close();
+        }
+        return StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray())).toString();
     }
 
     @Override
     public void close() throws IOException {
+        super.close();
         fc.close();
+    }
+
+    private void getNextElement() throws IOException {
+
+        long n = (fc.position() + nbCharacters < fc.size()) ? nbCharacters : fc.size() - fc.position();
+        this.buffer = fc.map(FileChannel.MapMode.READ_ONLY, fc.position(), n);
+        fc.position(fc.position() + n);
     }
 }

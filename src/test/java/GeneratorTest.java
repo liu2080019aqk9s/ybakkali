@@ -45,7 +45,7 @@ class GeneratorTest {
 
     @Test
     public void Mmap2() throws IOException {
-        Generator generator = new MmapGenerator(2);
+        Generator generator = new MmapGenerator(2000);
         testFile(generator);
     }
 
@@ -129,7 +129,7 @@ class GeneratorTest {
         Generator generatorReader = new OneBufferGenerator(42);
         Generator generatorWriter = new OneBufferGenerator(42);
         ExtSort extSort = new ExtSort(generatorReader, generatorWriter);
-        extSort.begin(this.baseResourcesPath + "ExtSortExample.csv", 2, 10, 2);
+        extSort.begin(this.baseResourcesPath + "ExtSortExample.csv", 3, 10, 2);
 
         BaseInputStream actualInputStream = new OneInputStream("ExtSortOutput.csv");
         actualInputStream.open();
