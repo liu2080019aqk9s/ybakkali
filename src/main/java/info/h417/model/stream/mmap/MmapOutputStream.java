@@ -34,13 +34,30 @@ public class MmapOutputStream extends BaseOutputStream {
         fc = rw.getChannel();
     }
 
+    /**
+     * Close the stream.
+     *
+     * @throws IOException If some I/O error occurs
+     */
     @Override
-    public void writeln(String text) throws IOException {
+    public void close() throws IOException {
+        rw.close();
+        fc.close();
+    }
+
+    /**
+     * Write a string to the stream and terminate this stream with the newline character.
+     *
+     * @param line The line to write
+     * @throws IOException If some I/O error occurs
+     */
+    @Override
+    public void writeln(String line) throws IOException {
         int i = 0;
         boolean loop = true;
         byte character;
         long size = nbCharacters;
-        byte[] bText = text.getBytes(StandardCharsets.UTF_8);
+        byte[] bText = line.getBytes(StandardCharsets.UTF_8);
         while(loop){
 
             if(bText.length - i < nbCharacters +1){
@@ -64,11 +81,5 @@ public class MmapOutputStream extends BaseOutputStream {
 
             fc.position(newPosition);
         }
-    }
-
-    @Override
-    public void close() throws IOException {
-        rw.close();
-        fc.close();
     }
 }

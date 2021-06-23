@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 
 public class OneOutputStream extends BaseOutputStream {
 
-
     /**
      * Constructor of an outputStream that write one character at time
      *
@@ -17,10 +16,15 @@ public class OneOutputStream extends BaseOutputStream {
         super(filename);
     }
 
-
+    /**
+     * Write a string to the stream and terminate this stream with the newline character.
+     *
+     * @param line The line to write
+     * @throws IOException If some I/O error occurs
+     */
     @Override
-    public void writeln(String text) throws IOException {
-        for(byte character : text.getBytes(StandardCharsets.UTF_8)){
+    public void writeln(String line) throws IOException {
+        for(byte character : line.getBytes(StandardCharsets.UTF_8)){
             out.write(character);
         }
         out.write((byte)'\n');

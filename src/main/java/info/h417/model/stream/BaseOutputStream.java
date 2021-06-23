@@ -17,7 +17,9 @@ public abstract class BaseOutputStream extends BaseStream{
     }
 
     /**
-     * create a new file
+     * Create a new file.
+     *
+     * @throws IOException If some I/O error occurs
      */
     public void create() throws IOException {
         if(out == null){
@@ -26,16 +28,20 @@ public abstract class BaseOutputStream extends BaseStream{
     }
 
     /**
-     * close the stream
+     * Close the stream.
+     *
+     * @throws IOException If some I/O error occurs
      */
     public void close() throws IOException {
         out.close();
     }
 
     /**
-     *  write  a  string  to  the  stream  and  terminate  this  stream  with  the  newline character
-     * @param text
+     * Write a string to the stream and terminate this stream with the newline character.
+     *
+     * @param line The line to write
+     * @throws IOException If some I/O error occurs
      */
-    public abstract void writeln(String text) throws IOException;
+    public abstract void writeln(String line) throws IOException;
 
 }

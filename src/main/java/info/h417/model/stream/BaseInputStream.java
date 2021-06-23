@@ -53,7 +53,6 @@ public abstract class BaseInputStream extends BaseStream {
         in.getChannel().position(pos);
     }
 
-
     /**
      * Get the end of stream state.
      *
@@ -63,7 +62,6 @@ public abstract class BaseInputStream extends BaseStream {
     public boolean end_of_stream() throws IOException {
         return in.available() == 0;
     }
-
 
     /**
      *  Get the size of the file.

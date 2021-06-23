@@ -19,7 +19,9 @@ public class BufferedOutputStream extends BaseOutputStream {
     }
 
     /**
-     * @throws IOException
+     * Create a new file.
+     *
+     * @throws IOException If some I/O error occurs
      */
     @Override
     public void create() throws IOException {
@@ -30,22 +32,26 @@ public class BufferedOutputStream extends BaseOutputStream {
     }
 
     /**
-     * @param text
-     * @throws IOException
-     */
-    @Override
-    public void writeln(String text) throws IOException {
-        bufferedWriter.write(text + "\n");
-
-        bufferedWriter.flush(); // Marche sans si on close le fichier
-    }
-
-    /**
-     * @throws IOException
+     * Close the stream.
+     *
+     * @throws IOException If some I/O error occurs
      */
     @Override
     public void close() throws IOException {
         super.close();
         bufferedWriter.close();
+    }
+
+    /**
+     * Write a string to the stream and terminate this stream with the newline character.
+     *
+     * @param line The line to write
+     * @throws IOException If some I/O error occurs
+     */
+    @Override
+    public void writeln(String line) throws IOException {
+
+        bufferedWriter.write(line + "\n");
+        bufferedWriter.flush();
     }
 }
