@@ -21,6 +21,13 @@ public class ExtSort extends BaseAlgo {
         this.outputString = "ExtSortOutput.csv";
     }
 
+    /**
+     * @param fileName
+     * @param k
+     * @param M
+     * @param d
+     * @throws IOException
+     */
     public void begin(String fileName, int k, int M, int d) throws IOException {
         BaseInputStream inputStream = generator.getInputStream(fileName);
         BaseOutputStream outputStream = writeGenerator.getOutputStream(outputString);
@@ -32,17 +39,24 @@ public class ExtSort extends BaseAlgo {
         List<List<String>> buffer = new ArrayList<>();
 
         filesInitialisation(k - 1, M, inputStream, tempFilesNames, queue, buffer);
-
         multiWayMerge(k - 1, d, outputStream, tempFilesNames, queue);
 
         deleteTemporaryFiles(tempFilesNames);
-
         inputStream.close();
+        outputStream.close();
     }
 
+    /**
+     * @param k
+     * @param M
+     * @param inputStream
+     * @param tempFilesNames
+     * @param queue
+     * @param buffer
+     * @throws IOException
+     */
     private void filesInitialisation(int k, int M, BaseInputStream inputStream, List<String> tempFilesNames, Queue<BaseInputStream> queue, List<List<String>> buffer) throws IOException {
-        int length = 0;
-        int i = 0;
+        int length = 0, i = 0;
         while (!inputStream.end_of_stream()) {
             String tempLine = inputStream.readln();
             length += tempLine.length();
@@ -70,6 +84,14 @@ public class ExtSort extends BaseAlgo {
         }
     }
 
+    /**
+     * @param k
+     * @param d
+     * @param outputStream
+     * @param tempFilesNames
+     * @param queue
+     * @throws IOException
+     */
     private void multiWayMerge(int k, int d, BaseOutputStream outputStream, List<String> tempFilesNames, Queue<BaseInputStream> queue) throws IOException {
         int i = 0;
         while (!queue.isEmpty()) {
@@ -103,12 +125,12 @@ public class ExtSort extends BaseAlgo {
         }
     }
 
-    private void deleteTemporaryFiles(List<String> tempFilesNames) throws IOException {
-        for (String tempFileName : tempFilesNames) {
-            Files.deleteIfExists(Paths.get(tempFileName));
-        }
-    }
-
+    /**
+     * @param toMergeList
+     * @param baseOutputStream
+     * @param k
+     * @throws IOException
+     */
     private void merge(List<BaseInputStream> toMergeList, BaseOutputStream baseOutputStream, int k) throws IOException {
         List<List<String>> current = new ArrayList<>(toMergeList.size());
 
@@ -133,6 +155,15 @@ public class ExtSort extends BaseAlgo {
                 toMergeList.remove(min);
             }
         }
-        baseOutputStream.close();
+    }
+
+    /**
+     * @param tempFilesNames
+     * @throws IOException
+     */
+    private void deleteTemporaryFiles(List<String> tempFilesNames) throws IOException {
+        for (String tempFileName : tempFilesNames) {
+            Files.deleteIfExists(Paths.get(tempFileName));
+        }
     }
 }

@@ -18,22 +18,24 @@ public class OneInputStream extends BaseInputStream {
         super(filename);
     }
 
+    /**
+     * Read the next line from the stream
+     *
+     * @return A line of the file text
+     * @throws IOException If some I/O error occurs
+     */
     @Override
     public String readln() throws IOException {
-        String temp = "";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         int character =  in.read();
-        while( character != '\n' && !end_of_stream()){
+        while(character != '\n' && !end_of_stream()){
             output.write(character);
             character = in.read();
         }
-        temp += StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray() )).toString();
+
         output.close();
 
-        return temp;
+        return StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray() )).toString();
     }
-
-
-
 }

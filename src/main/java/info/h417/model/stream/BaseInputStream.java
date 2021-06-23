@@ -16,13 +16,17 @@ public abstract class BaseInputStream extends BaseStream {
     }
 
     /**
-     * read the next line from the stream
-     * @return the line
+     * Read the next line from the stream
+     *
+     * @return A line of the file text
+     * @throws IOException If some I/O error occurs
      */
     public abstract String readln() throws IOException;
 
     /**
-     * open an existing file for reading
+     * Open an existing file for reading.
+     *
+     * @throws IOException If some I/O error occurs
      */
     public void open() throws IOException {
         if(in == null){
@@ -31,29 +35,41 @@ public abstract class BaseInputStream extends BaseStream {
     }
 
     /**
-     * close the stream
+     * Close the stream.
+     *
+     * @throws IOException If some I/O error occurs
      */
     public void close() throws IOException{
         in.close();
     }
 
     /**
-     * move the file cursor to pos so that a subsequent readln reads from position pos to the next end of line
-     * @param pos the position in file
+     * Move the file cursor to the new position.
+     *
+     * @param pos The new position in file
+     * @throws IOException If some I/O error occurs
      */
     public void seek(long pos) throws IOException {
         in.getChannel().position(pos);
     }
 
+
     /**
-     * a boolean operation that returns true if the end of stream has been reached.
+     * Get the end of stream state.
+     *
+     * @return True if end of stream has been reached otherwise false
+     * @throws IOException If some I/O error occurs
      */
     public boolean end_of_stream() throws IOException {
         return in.available() == 0;
     }
 
+
     /**
-     * This function return the size of the file
+     *  Get the size of the file.
+     *
+     * @return The file size
+     * @throws IOException If some I/O error occurs
      */
     public long sizeFile() throws IOException {
         return in.getChannel().size();

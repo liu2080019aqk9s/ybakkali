@@ -18,6 +18,11 @@ public class Length extends BaseAlgo{
     }
 
 
+    /**
+     * @param filename
+     * @return
+     * @throws IOException
+     */
     public int begin(String filename) throws IOException {
         int sum = 0;
 

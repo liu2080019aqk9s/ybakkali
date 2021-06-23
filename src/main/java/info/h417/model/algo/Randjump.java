@@ -19,6 +19,12 @@ public class Randjump extends BaseAlgo{
         super(generator);
     }
 
+    /**
+     * @param filename
+     * @param j
+     * @return
+     * @throws IOException
+     */
     public int begin(String filename, int j) throws IOException {
         int sum = 0;
         BaseInputStream inputStream = generator.getInputStream(filename);

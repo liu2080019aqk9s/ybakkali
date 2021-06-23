@@ -18,6 +18,9 @@ public class BufferedOutputStream extends BaseOutputStream {
         super(filename);
     }
 
+    /**
+     * @throws IOException
+     */
     @Override
     public void create() throws IOException {
         super.create();
@@ -26,6 +29,10 @@ public class BufferedOutputStream extends BaseOutputStream {
         }
     }
 
+    /**
+     * @param text
+     * @throws IOException
+     */
     @Override
     public void writeln(String text) throws IOException {
         bufferedWriter.write(text + "\n");
@@ -33,8 +40,12 @@ public class BufferedOutputStream extends BaseOutputStream {
         bufferedWriter.flush(); // Marche sans si on close le fichier
     }
 
+    /**
+     * @throws IOException
+     */
     @Override
     public void close() throws IOException {
+        super.close();
         bufferedWriter.close();
     }
 }
