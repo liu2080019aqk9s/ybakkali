@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 public class OneBufferOutputStream extends BaseOutputStream {
 
     private final byte[] buffer;
+    private int cursorPosition;
 
     /**
      * Basic Constructor of an outputStream that write sizeBuffer character in a buffer
@@ -19,6 +20,20 @@ public class OneBufferOutputStream extends BaseOutputStream {
     public OneBufferOutputStream(String filename,int sizeBuffer) {
         super(filename);
         this.buffer = new byte[sizeBuffer];
+        this.cursorPosition = 0;
+    }
+
+    /**
+     * Close the stream.
+     *
+     * @throws IOException If some I/O error occurs
+     */
+    @Override
+    public void close() throws IOException {
+        if (cursorPosition > 0) {
+            writeIntoFile();
+        }
+        super.close();
     }
 
     /**
@@ -29,19 +44,31 @@ public class OneBufferOutputStream extends BaseOutputStream {
      */
     @Override
     public void writeln(String line) throws IOException {
-        int i = 0;
-        //ByteBuffer bytesText = StandardCharsets.UTF_8.encode(text);
-        for(byte character :  line.getBytes(StandardCharsets.UTF_8)){
-            buffer[i] =   character;
 
-            if(i == buffer.length -1){
-                out.write(buffer);
+        byte[] lineBytes = line.getBytes(StandardCharsets.UTF_8);
+
+        for (int i = 0; i <= lineBytes.length; i++) {
+            if (cursorPosition == buffer.length) {
+                writeIntoFile();
             }
-            i = (i + 1)%buffer.length;
-        }
 
-        buffer[i] = '\n';
-        out.write(buffer,0,i+1);
+            byte b = (i < lineBytes.length) ? lineBytes[i] : (byte)'\n';
+            this.buffer[cursorPosition] = b;
+            cursorPosition++;
+        }
     }
 
+
+    /**
+     * Load the next B characters into the buffer
+     *
+     * @throws IOException If some I/O error occurs
+     */
+    private void writeIntoFile() throws IOException {
+
+        for (int i = 0; i < this.cursorPosition; i++) {
+            out.write(this.buffer[i]);
+        }
+        this.cursorPosition = 0;
+    }
 }

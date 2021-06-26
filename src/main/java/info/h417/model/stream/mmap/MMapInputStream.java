@@ -9,7 +9,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 
-public class MmapInputStream extends BaseInputStream {
+public class MMapInputStream extends BaseInputStream {
     private final int nbCharacters;
     private MappedByteBuffer buffer;
     private FileChannel fc;
@@ -21,7 +21,7 @@ public class MmapInputStream extends BaseInputStream {
      * @param filename     The path of the file
      * @param nbCharacters The size of the buffer
      */
-    public MmapInputStream(String filename, int nbCharacters) {
+    public MMapInputStream(String filename, int nbCharacters) {
         super(filename);
         this.nbCharacters = nbCharacters;
     }

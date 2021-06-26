@@ -4,7 +4,7 @@ import info.h417.model.stream.BaseInputStream;
 import info.h417.model.stream.BaseOutputStream;
 import info.h417.model.stream.Generator;
 import info.h417.model.stream.buffered.BufferedGenerator;
-import info.h417.model.stream.mmap.MmapGenerator;
+import info.h417.model.stream.mmap.MMapGenerator;
 import info.h417.model.stream.one.OneGenerator;
 import info.h417.model.stream.one.OneInputStream;
 import info.h417.model.stream.oneBuffer.OneBufferGenerator;
@@ -44,8 +44,8 @@ class GeneratorTest {
     }
 
     @Test
-    public void Mmap2() throws IOException {
-        Generator generator = new MmapGenerator(2000);
+    public void MMap2() throws IOException {
+        Generator generator = new MMapGenerator(2000);
         testFile(generator);
     }
 
@@ -77,9 +77,9 @@ class GeneratorTest {
     }
 
     @Test
-    public void Mmap() throws IOException {
+    public void MMap() throws IOException {
         int nbCharacter = 5;
-        MmapGenerator generator = new MmapGenerator(nbCharacter);
+        MMapGenerator generator = new MMapGenerator(nbCharacter);
         Test(generator);
         Test2(generator);
         testFile(generator);
@@ -90,7 +90,7 @@ class GeneratorTest {
         int nbCharacter = 5;
         int sizeBuffer = 5;
         ArrayList<Generator> t =  new ArrayList<>();
-        t.add(new MmapGenerator(nbCharacter));
+        t.add(new MMapGenerator(nbCharacter));
         t.add(new OneBufferGenerator(sizeBuffer));
         t.add( new OneGenerator());
         t.add( new BufferedGenerator());
@@ -105,7 +105,7 @@ class GeneratorTest {
 
     @Test
     public void RRMerge() throws IOException {
-        Generator generatorReader = new OneBufferGenerator(42);
+        Generator generatorReader = new MMapGenerator(42);
         Generator generatorWriter = new OneBufferGenerator(42);
         RRMerge rrMerge = new RRMerge(generatorReader, generatorWriter);
         String partsPath = this.baseResourcesPath + "RRMergeExamplePart";

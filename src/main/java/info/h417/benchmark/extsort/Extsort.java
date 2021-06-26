@@ -3,7 +3,7 @@ package info.h417.benchmark.extsort;
 import info.h417.model.algo.ExtSort;
 import info.h417.model.stream.Generator;
 import info.h417.model.stream.buffered.BufferedGenerator;
-import info.h417.model.stream.mmap.MmapGenerator;
+import info.h417.model.stream.mmap.MMapGenerator;
 import info.h417.model.stream.one.OneGenerator;
 import info.h417.model.stream.oneBuffer.OneBufferGenerator;
 import org.openjdk.jmh.annotations.*;
@@ -60,7 +60,7 @@ public class Extsort {
                 readerGenerator = new OneBufferGenerator(M);
                 break;
             case "Mmap":
-                readerGenerator = new MmapGenerator(M);
+                readerGenerator = new MMapGenerator(M);
                 break;
         }
 
@@ -75,7 +75,7 @@ public class Extsort {
                 writerGenerator = new OneBufferGenerator(M);
                 break;
             case "Mmap":
-                writerGenerator = new MmapGenerator(M);
+                writerGenerator = new MMapGenerator(M);
                 break;
         }
     }

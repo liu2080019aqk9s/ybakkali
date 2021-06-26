@@ -3,7 +3,7 @@ package info.h417.benchmark.read;
 import info.h417.model.algo.Length;
 import info.h417.model.algo.Randjump;
 import info.h417.model.stream.Generator;
-import info.h417.model.stream.mmap.MmapGenerator;
+import info.h417.model.stream.mmap.MMapGenerator;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.NANOSECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class Mmap {
+public class MMap {
 
     Generator generator;
 
@@ -35,7 +35,7 @@ public class Mmap {
 
     @Setup
     public void setup() {
-        this.generator = new MmapGenerator(bufferSize);
+        this.generator = new MMapGenerator(bufferSize);
     }
 
     @Benchmark

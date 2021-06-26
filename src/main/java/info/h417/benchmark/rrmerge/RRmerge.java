@@ -3,7 +3,7 @@ package info.h417.benchmark.rrmerge;
 import info.h417.model.algo.RRMerge;
 import info.h417.model.stream.Generator;
 import info.h417.model.stream.buffered.BufferedGenerator;
-import info.h417.model.stream.mmap.MmapGenerator;
+import info.h417.model.stream.mmap.MMapGenerator;
 import info.h417.model.stream.one.OneGenerator;
 import info.h417.model.stream.oneBuffer.OneBufferGenerator;
 import org.openjdk.jmh.annotations.*;
@@ -58,7 +58,7 @@ public class RRmerge {
                 readerGenerator = new OneBufferGenerator(bufferSize);
                 break;
             case "Mmap":
-                readerGenerator = new MmapGenerator(bufferSize);
+                readerGenerator = new MMapGenerator(bufferSize);
                 break;
         }
 
@@ -73,7 +73,7 @@ public class RRmerge {
                 writerGenerator = new OneBufferGenerator(bufferSize);
                 break;
             case "Mmap":
-                writerGenerator = new MmapGenerator(bufferSize);
+                writerGenerator = new MMapGenerator(bufferSize);
                 break;
         }
 

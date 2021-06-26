@@ -43,7 +43,6 @@ public class ExtSort extends BaseAlgo {
 
         deleteTemporaryFiles(tempFilesNames);
         inputStream.close();
-        outputStream.close();
     }
 
     /**
@@ -106,7 +105,6 @@ public class ExtSort extends BaseAlgo {
             } else {
                 tempFilesNames.add(tempFilename);
                 baseOutputStream = generator.getOutputStream(tempFilename);
-                baseOutputStream.create();
             }
 
             int a = 0;
@@ -145,6 +143,7 @@ public class ExtSort extends BaseAlgo {
             }
         }
 
+        baseOutputStream.create();
         while (!current.isEmpty()) {
             int min = current.indexOf(Collections.min(current, Comparator.comparing(o -> o.get(k))));
             baseOutputStream.writeln(String.join(",", current.remove(min)));
@@ -155,6 +154,7 @@ public class ExtSort extends BaseAlgo {
                 toMergeList.remove(min);
             }
         }
+        baseOutputStream.close();
     }
 
     /**
