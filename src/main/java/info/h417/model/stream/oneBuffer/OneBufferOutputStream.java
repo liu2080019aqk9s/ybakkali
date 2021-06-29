@@ -60,15 +60,12 @@ public class OneBufferOutputStream extends BaseOutputStream {
 
 
     /**
-     * Load the next B characters into the buffer
+     * Write the B characters in the buffer into the file
      *
      * @throws IOException If some I/O error occurs
      */
     private void writeIntoFile() throws IOException {
-
-        for (int i = 0; i < this.cursorPosition; i++) {
-            out.write(this.buffer[i]);
-        }
+        out.write(buffer, 0, cursorPosition);
         this.cursorPosition = 0;
     }
 }
