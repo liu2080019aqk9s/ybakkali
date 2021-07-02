@@ -5,12 +5,12 @@ import info.h417.model.stream.BaseInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 
 public class OneBufferInputStream extends BaseInputStream {
-    private final ByteBuffer buffer;
-    private FileChannel fc;
+    private final byte[] buffer;
+    private int cursorPosition;
+    private int storedBytes;
 
     /**
      * Basic Constructor of an inputStream that reads sizeBuffer character in a buffer
@@ -20,32 +20,8 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     public OneBufferInputStream(String filename,int sizeBuffer) {
         super(filename);
-        this.buffer = ByteBuffer.allocate(sizeBuffer);
-    }
-
-    /**
-     * Open an existing file for reading.
-     *
-     * @throws IOException If some I/O error occurs
-     */
-    @Override
-    public void open() throws IOException {
-        super.open();
-        if(in != null){
-            this.fc = in.getChannel();
-            getNextElement();
-        }
-    }
-
-    /**
-     * Close the stream.
-     *
-     * @throws IOException If some I/O error occurs
-     */
-    @Override
-    public void close() throws IOException {
-        super.close();
-        fc.close();
+        this.buffer = new byte[sizeBuffer];
+        this.cursorPosition = sizeBuffer;
     }
 
     /**
@@ -56,7 +32,7 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     @Override
     public void seek(long pos) throws IOException {
-        this.fc.position(pos);
+        super.seek(pos);
         getNextElement();
     }
 
@@ -68,26 +44,29 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     @Override
     public boolean end_of_stream() throws IOException {
-        return fc.position() >= fc.size() && !buffer.hasRemaining();
+        return super.end_of_stream() && storedBytes == 0;
     }
 
     @Override
     public String readln() throws IOException {
+
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         boolean loop = true;
 
         while (!end_of_stream() && loop) {
 
-            if (!buffer.hasRemaining()) {
+            if (cursorPosition == buffer.length) {
                 getNextElement();
             }
-            byte b = this.buffer.get();
+            int b = this.buffer[cursorPosition];
             if (b == '\n') {
                 loop = false;
             } else {
                 output.write(b);
             }
+            cursorPosition++;
+            storedBytes--;
         }
         output.close();
         return StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray())).toString();
@@ -99,8 +78,7 @@ public class OneBufferInputStream extends BaseInputStream {
      * @throws IOException If some I/O error occurs
      */
     private void getNextElement() throws IOException {
-        this.buffer.clear();
-        fc.read(this.buffer);
-        this.buffer.flip();
+        storedBytes = in.read(this.buffer);
+        this.cursorPosition = 0;
     }
 }
