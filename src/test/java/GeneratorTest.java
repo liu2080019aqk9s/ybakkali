@@ -105,8 +105,8 @@ class GeneratorTest {
 
     @Test
     public void RRMerge() throws IOException {
-        Generator generatorReader = new MMapGenerator(42);
-        Generator generatorWriter = new OneBufferGenerator(42);
+        Generator generatorReader = new OneGenerator();
+        Generator generatorWriter = new OneGenerator();
         RRMerge rrMerge = new RRMerge(generatorReader, generatorWriter);
         String partsPath = this.baseResourcesPath + "RRMergeExamplePart";
         rrMerge.begin(partsPath + "1.csv", partsPath + "2.csv", partsPath + "3.csv", partsPath + "4.csv", partsPath + "5.csv");
