@@ -29,7 +29,7 @@ public class OneInputStream extends BaseInputStream {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         int character =  in.read();
-        while(character != '\n' && character != -1){
+        while(character != '\n' && character != '\r' && character != -1){
             output.write(character);
             character = in.read();
         }
