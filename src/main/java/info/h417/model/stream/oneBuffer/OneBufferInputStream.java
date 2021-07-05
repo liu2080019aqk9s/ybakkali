@@ -60,7 +60,7 @@ public class OneBufferInputStream extends BaseInputStream {
                 getNextElement();
             }
             int b = this.buffer[cursorPosition];
-            if (b == '\n' || b == '\r') {
+            if (b == '\n' ) {
                 loop = false;
             } else {
                 output.write(b);

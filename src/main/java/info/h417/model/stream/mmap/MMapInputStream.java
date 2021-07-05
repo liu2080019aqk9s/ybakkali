@@ -93,7 +93,7 @@ public class MMapInputStream extends BaseInputStream {
             }
 
             byte b = buffer.get();
-            if (b == '\n' || b == '\r') {
+            if (b == '\n') {
                 loop = false;
             } else {
                 output.write(b);
