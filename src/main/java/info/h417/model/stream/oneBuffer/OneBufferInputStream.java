@@ -33,7 +33,7 @@ public class OneBufferInputStream extends BaseInputStream {
     @Override
     public void seek(long pos) throws IOException {
         super.seek(pos);
-        getNextElement();
+        this.cursorPosition = buffer.length;
     }
 
     /**
