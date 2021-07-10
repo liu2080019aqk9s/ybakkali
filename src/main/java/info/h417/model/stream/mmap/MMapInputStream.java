@@ -60,7 +60,7 @@ public class MMapInputStream extends BaseInputStream {
     @Override
     public void seek(long pos) throws IOException {
         fc.position(pos);
-        getNextElement();
+        this.buffer.position(nbCharacters);
     }
 
     /**

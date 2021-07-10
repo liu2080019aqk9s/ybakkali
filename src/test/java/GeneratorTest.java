@@ -1,4 +1,5 @@
 import info.h417.model.algo.ExtSort;
+import info.h417.model.algo.Length;
 import info.h417.model.algo.RRMerge;
 import info.h417.model.stream.BaseInputStream;
 import info.h417.model.stream.BaseOutputStream;
@@ -18,6 +19,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeneratorTest {
     String baseResourcesPath = "src/test/resources/";
+
+    @Test
+    public void length() throws IOException {
+
+        Generator generator1 = new OneGenerator();
+        Length length1 = new Length(generator1);
+        assertEquals(6 * 5, length1.begin(baseResourcesPath + "file.txt"));
+
+        Generator generator2 = new BufferedGenerator();
+        Length length2 = new Length(generator2);
+        assertEquals(6 * 5, length2.begin(baseResourcesPath + "file.txt"));
+
+        Generator generator3 = new OneBufferGenerator(100);
+        Length length3 = new Length(generator3);
+        assertEquals(6 * 5, length3.begin(baseResourcesPath + "file.txt"));
+
+        Generator generator4 = new MMapGenerator(100);
+        Length length4 = new Length(generator4);
+        assertEquals(6 * 5, length4.begin(baseResourcesPath + "file.txt"));
+
+    }
 
     @Test
     public void newOneBuffer() throws IOException {

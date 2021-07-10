@@ -61,7 +61,7 @@ public class ExtSort extends BaseAlgo {
             length += tempLine.length();
             buffer.add(Arrays.asList(tempLine.split(",", -1)));
 
-            if (length >= M) {
+            if (length >= M || inputStream.end_of_stream()) {
                 String tempFilename = "tempFile" + i;
                 tempFilesNames.add(tempFilename);
                 BaseOutputStream tempOutputStream = generator.getOutputStream(tempFilename);
