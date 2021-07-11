@@ -36,7 +36,6 @@ public class MMapInputStream extends BaseInputStream {
         super.open();
         if(in != null){
             fc = in.getChannel();
-            getNextElement();
         }
     }
 
@@ -60,7 +59,9 @@ public class MMapInputStream extends BaseInputStream {
     @Override
     public void seek(long pos) throws IOException {
         fc.position(pos);
-        this.buffer.position(nbCharacters);
+        if (this.buffer != null) {
+            this.buffer.position(nbCharacters);
+        }
     }
 
     /**
@@ -82,6 +83,10 @@ public class MMapInputStream extends BaseInputStream {
      */
     @Override
     public String readln() throws IOException {
+
+        if (this.buffer == null) {
+            getNextElement();
+        }
 
         boolean loop = true;
         ByteArrayOutputStream output = new ByteArrayOutputStream();
