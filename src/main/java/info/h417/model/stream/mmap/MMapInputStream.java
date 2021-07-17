@@ -13,6 +13,7 @@ public class MMapInputStream extends BaseInputStream {
     private final int nbCharacters;
     private MappedByteBuffer buffer;
     private FileChannel fc;
+    private boolean seek;
 
     /**
      * Constructor of an inputStream that reads by mapping and unmapping
@@ -59,9 +60,7 @@ public class MMapInputStream extends BaseInputStream {
     @Override
     public void seek(long pos) throws IOException {
         super.seek(pos);
-        if (this.buffer != null) {
-            this.buffer.position(this.buffer.capacity());
-        }
+        seek = true;
     }
 
     /**
@@ -93,7 +92,7 @@ public class MMapInputStream extends BaseInputStream {
 
         while(!end_of_stream() && loop){
 
-            if (!buffer.hasRemaining()) {
+            if (!buffer.hasRemaining() || seek) {
                 getNextElement();
             }
 
@@ -118,5 +117,6 @@ public class MMapInputStream extends BaseInputStream {
         long n = (fc.position() + nbCharacters < fc.size()) ? nbCharacters : fc.size() - fc.position();
         this.buffer = fc.map(FileChannel.MapMode.READ_ONLY, fc.position(), n);
         fc.position(fc.position() + n);
+        seek = false;
     }
 }
