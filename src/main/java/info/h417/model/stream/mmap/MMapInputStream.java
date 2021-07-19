@@ -25,6 +25,7 @@ public class MMapInputStream extends BaseInputStream {
     public MMapInputStream(String filename, int nbCharacters) {
         super(filename);
         this.nbCharacters = nbCharacters;
+        this.seek = false;
     }
 
     /**
