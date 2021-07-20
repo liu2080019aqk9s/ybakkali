@@ -2,15 +2,18 @@ package info.h417.model.stream.oneBuffer;
 
 import info.h417.model.stream.BaseInputStream;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class OneBufferInputStream extends BaseInputStream {
-    private final byte[] buffer;
+    InputStreamReader inputStreamReader;
+    char[] buffer;
     private int cursorPosition;
     private int storedBytes;
+    private boolean seek;
+    private boolean endOfStream;
+    private int limit;
 
     /**
      * Basic Constructor of an inputStream that reads sizeBuffer character in a buffer
@@ -20,8 +23,34 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     public OneBufferInputStream(String filename,int sizeBuffer) {
         super(filename);
-        this.buffer = new byte[sizeBuffer];
+        this.buffer = new char[sizeBuffer];
         this.cursorPosition = sizeBuffer;
+        this.limit = sizeBuffer;
+        this.seek = false;
+    }
+
+    /**
+     * Open an existing file for reading with the MappedByteBuffer.
+     *
+     * @throws IOException If some I/O error occurs
+     */
+    @Override
+    public void open() throws IOException {
+        super.open();
+        if(in != null){
+            inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
+        }
+    }
+
+    /**
+     * Close the stream.
+     *
+     * @throws IOException If some I/O error occurs
+     */
+    @Override
+    public void close() throws IOException {
+        super.close();
+        inputStreamReader.close();
     }
 
     /**
@@ -33,7 +62,8 @@ public class OneBufferInputStream extends BaseInputStream {
     @Override
     public void seek(long pos) throws IOException {
         super.seek(pos);
-        this.cursorPosition = buffer.length;
+        this.seek = true;
+        this.limit = buffer.length;
     }
 
     /**
@@ -44,32 +74,30 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     @Override
     public boolean end_of_stream() throws IOException {
-        return super.end_of_stream() && storedBytes == 0;
+        return endOfStream && cursorPosition == limit;
     }
 
     @Override
     public String readln() throws IOException {
 
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        StringBuilder line = new StringBuilder();
         boolean loop = true;
 
         while (!end_of_stream() && loop) {
 
-            if (cursorPosition == buffer.length) {
+            if (cursorPosition == buffer.length || seek) {
                 getNextElement();
             }
             int b = this.buffer[cursorPosition];
-            if (b == '\n' ) {
+            if (b == '\n') {
                 loop = false;
             } else {
-                output.write(b);
+                line.append((char) b);
             }
             cursorPosition++;
-            storedBytes--;
         }
-        output.close();
-        return StandardCharsets.UTF_8.decode(ByteBuffer.wrap(output.toByteArray())).toString();
+        return line.toString();
     }
 
     /**
@@ -78,7 +106,10 @@ public class OneBufferInputStream extends BaseInputStream {
      * @throws IOException If some I/O error occurs
      */
     private void getNextElement() throws IOException {
-        storedBytes = in.read(this.buffer);
+        storedBytes = inputStreamReader.read(this.buffer);
+        this.endOfStream = (storedBytes == -1 || storedBytes < buffer.length);
+        this.limit = Math.min(storedBytes, buffer.length);
         this.cursorPosition = 0;
+        this.seek = false;
     }
 }
