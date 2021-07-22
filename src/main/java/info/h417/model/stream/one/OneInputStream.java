@@ -8,7 +8,6 @@ import java.io.IOException;
 public class OneInputStream extends BaseInputStream {
 
     FileReader fileReader;
-    private boolean endOfStream;
 
     /**
      * Constructor of an inputStream that reads one character at time
@@ -17,7 +16,6 @@ public class OneInputStream extends BaseInputStream {
      */
     public OneInputStream(String filename) {
         super(filename);
-        this.endOfStream = false;
     }
 
     /**
@@ -27,8 +25,7 @@ public class OneInputStream extends BaseInputStream {
      */
     @Override
     public void open() throws IOException {
-        //super.open();
-        fileReader = new FileReader(filename);
+        this.fileReader = new FileReader(filename);
     }
 
     /**
@@ -38,8 +35,7 @@ public class OneInputStream extends BaseInputStream {
      */
     @Override
     public void close() throws IOException {
-        //super.close();
-        fileReader.close();
+        this.fileReader.close();
     }
 
     /**
@@ -50,8 +46,9 @@ public class OneInputStream extends BaseInputStream {
      */
     @Override
     public void seek(long pos) throws IOException {
-        // @TODO
-        endOfStream = false;
+        this.fileReader.close();
+        this.fileReader = new FileReader(filename);
+        this.fileReader.skip(pos);
     }
 
 
@@ -63,7 +60,7 @@ public class OneInputStream extends BaseInputStream {
      */
     @Override
     public boolean end_of_stream() throws IOException {
-        return endOfStream;
+        return !this.fileReader.ready();
     }
 
 
@@ -76,14 +73,18 @@ public class OneInputStream extends BaseInputStream {
     @Override
     public String readln() throws IOException {
 
-        StringBuilder line = new StringBuilder();
+        if (end_of_stream()) {
+            return null;
+        } else {
 
-        int character =  fileReader.read();
-        while(character != '\n' && character != -1){
-            line.append((char) character);
-            character = fileReader.read();
+            StringBuilder line = new StringBuilder();
+
+            int character = this.fileReader.read();
+            while (character != -1 && character != '\n') {
+                line.append((char) character);
+                character = this.fileReader.read();
+            }
+            return line.toString();
         }
-        endOfStream = (character == -1);
-        return line.toString();
     }
 }
