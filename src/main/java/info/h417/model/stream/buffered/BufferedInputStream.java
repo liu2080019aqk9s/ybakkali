@@ -3,10 +3,11 @@ package info.h417.model.stream.buffered;
 import info.h417.model.stream.BaseInputStream;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class BufferedInputStream extends BaseInputStream {
+
     private BufferedReader bufferedReader;
 
     /**
@@ -26,10 +27,7 @@ public class BufferedInputStream extends BaseInputStream {
      */
     @Override
     public void open() throws IOException {
-        super.open();
-        if(bufferedReader == null){
-            bufferedReader = new BufferedReader(new InputStreamReader(in));
-        }
+        this.bufferedReader = new BufferedReader(new FileReader(filename));
     }
 
     /**
@@ -39,8 +37,7 @@ public class BufferedInputStream extends BaseInputStream {
      */
     @Override
     public void close() throws IOException {
-        super.close();
-        bufferedReader.close();
+        this.bufferedReader.close();
     }
 
     /**
@@ -51,8 +48,9 @@ public class BufferedInputStream extends BaseInputStream {
      */
     @Override
     public void seek(long pos) throws IOException {
-        super.seek(pos);
-        bufferedReader = new BufferedReader(new InputStreamReader(in));
+        this.bufferedReader.close();
+        this.bufferedReader = new BufferedReader(new FileReader(filename));
+        this.bufferedReader.skip(pos);
     }
 
     /**
@@ -63,7 +61,7 @@ public class BufferedInputStream extends BaseInputStream {
      */
     @Override
     public boolean end_of_stream() throws IOException {
-        return !bufferedReader.ready();
+        return !this.bufferedReader.ready();
     }
 
     /**
@@ -74,6 +72,6 @@ public class BufferedInputStream extends BaseInputStream {
      */
     @Override
     public String readln() throws IOException {
-        return bufferedReader.readLine();
+        return this.bufferedReader.readLine();
     }
 }

@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public class MMapOutputStream extends BaseOutputStream {
+
     private final int nbCharacters;
     private MappedByteBuffer buffer;
     private FileChannel fc;
@@ -33,9 +34,7 @@ public class MMapOutputStream extends BaseOutputStream {
      */
     @Override
     public void create() throws IOException {
-        super.create();
-        fc = FileChannel.open(Paths.get(filename), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE, StandardOpenOption.READ);
-        getNextElement();
+        fc = FileChannel.open(Paths.get(filename), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.READ);
     }
 
     /**
@@ -45,7 +44,6 @@ public class MMapOutputStream extends BaseOutputStream {
      */
     @Override
     public void close() throws IOException {
-        super.close();
         fc.truncate(fc.position() - (nbCharacters - buffer.position()));
         fc.close();
     }
@@ -58,6 +56,11 @@ public class MMapOutputStream extends BaseOutputStream {
      */
     @Override
     public void writeln(String line) throws IOException {
+
+        if (this.buffer == null) {
+            getNextElement();
+        }
+
         byte[] lineBytes = line.getBytes(StandardCharsets.UTF_8);
 
         for (int i = 0; i <= lineBytes.length; i++) {

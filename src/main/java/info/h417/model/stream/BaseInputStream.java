@@ -1,10 +1,8 @@
 package info.h417.model.stream;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 public abstract class BaseInputStream extends BaseStream {
-    protected FileInputStream in;
 
     /**
      * Basic Constructor of an inputStream
@@ -28,20 +26,14 @@ public abstract class BaseInputStream extends BaseStream {
      *
      * @throws IOException If some I/O error occurs
      */
-    public void open() throws IOException {
-        if(in == null){
-            in = new FileInputStream(filename);
-        }
-    }
+    public abstract void open() throws IOException;
 
     /**
      * Close the stream.
      *
      * @throws IOException If some I/O error occurs
      */
-    public void close() throws IOException{
-        in.close();
-    }
+    public abstract void close() throws IOException;
 
     /**
      * Move the file cursor to the new position.
@@ -49,9 +41,7 @@ public abstract class BaseInputStream extends BaseStream {
      * @param pos The new position in file
      * @throws IOException If some I/O error occurs
      */
-    public void seek(long pos) throws IOException {
-        in.getChannel().position(pos);
-    }
+    public abstract void seek(long pos) throws IOException;
 
     /**
      * Get the end of stream state.
@@ -59,17 +49,5 @@ public abstract class BaseInputStream extends BaseStream {
      * @return True if end of stream has been reached otherwise false
      * @throws IOException If some I/O error occurs
      */
-    public boolean end_of_stream() throws IOException {
-        return in.available() == 0;
-    }
-
-    /**
-     *  Get the size of the file.
-     *
-     * @return The file size
-     * @throws IOException If some I/O error occurs
-     */
-    public long sizeFile() throws IOException {
-        return in.getChannel().size();
-    }
+    public abstract boolean end_of_stream() throws IOException;
 }

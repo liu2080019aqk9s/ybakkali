@@ -2,17 +2,15 @@ package info.h417.model.stream.oneBuffer;
 
 import info.h417.model.stream.BaseInputStream;
 
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 public class OneBufferInputStream extends BaseInputStream {
-    InputStreamReader inputStreamReader;
+
+    private FileReader fileReader;
     char[] buffer;
     private int cursorPosition;
-    private int storedBytes;
     private boolean seek;
-    private boolean endOfStream;
     private int limit;
 
     /**
@@ -36,10 +34,7 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     @Override
     public void open() throws IOException {
-        super.open();
-        if(in != null){
-            inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
-        }
+        this.fileReader = new FileReader(filename);
     }
 
     /**
@@ -49,8 +44,7 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     @Override
     public void close() throws IOException {
-        super.close();
-        inputStreamReader.close();
+        this.fileReader.close();
     }
 
     /**
@@ -61,7 +55,9 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     @Override
     public void seek(long pos) throws IOException {
-        super.seek(pos);
+        this.fileReader.close();
+        this.fileReader = new FileReader(filename);
+        this.fileReader.skip(pos);
         this.seek = true;
         this.limit = buffer.length;
     }
@@ -74,30 +70,34 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     @Override
     public boolean end_of_stream() throws IOException {
-        return endOfStream && cursorPosition == limit;
+        return !this.fileReader.ready() && cursorPosition == limit;
     }
 
     @Override
     public String readln() throws IOException {
 
+        if (end_of_stream()) {
+            return null;
+        } else {
 
-        StringBuilder line = new StringBuilder();
-        boolean loop = true;
+            StringBuilder line = new StringBuilder();
+            boolean loop = true;
 
-        while (!end_of_stream() && loop) {
+            while (!end_of_stream() && loop) {
 
-            if (cursorPosition == buffer.length || seek) {
-                getNextElement();
+                if (this.cursorPosition == this.buffer.length || this.seek) {
+                    getNextElement();
+                }
+                int b = this.buffer[this.cursorPosition];
+                if (b == '\n') {
+                    loop = false;
+                } else {
+                    line.append((char) b);
+                }
+                this.cursorPosition++;
             }
-            int b = this.buffer[cursorPosition];
-            if (b == '\n') {
-                loop = false;
-            } else {
-                line.append((char) b);
-            }
-            cursorPosition++;
+            return line.toString();
         }
-        return line.toString();
     }
 
     /**
@@ -106,9 +106,8 @@ public class OneBufferInputStream extends BaseInputStream {
      * @throws IOException If some I/O error occurs
      */
     private void getNextElement() throws IOException {
-        storedBytes = inputStreamReader.read(this.buffer);
-        this.endOfStream = (storedBytes == -1 || storedBytes < buffer.length);
-        this.limit = Math.min(storedBytes, buffer.length);
+
+        this.limit = Math.min(fileReader.read(this.buffer), buffer.length);
         this.cursorPosition = 0;
         this.seek = false;
     }

@@ -1,11 +1,8 @@
 package info.h417.model.stream;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 public abstract class BaseOutputStream extends BaseStream{
-
-    protected FileOutputStream out;
 
     /**
      * Basic Constructor of an outputStream
@@ -21,20 +18,14 @@ public abstract class BaseOutputStream extends BaseStream{
      *
      * @throws IOException If some I/O error occurs
      */
-    public void create() throws IOException {
-        if(out == null){
-            out = new FileOutputStream(filename);
-        }
-    }
+    public abstract void create() throws IOException;
 
     /**
      * Close the stream.
      *
      * @throws IOException If some I/O error occurs
      */
-    public void close() throws IOException {
-        out.close();
-    }
+    public abstract void close() throws IOException;
 
     /**
      * Write a string to the stream and terminate this stream with the newline character.

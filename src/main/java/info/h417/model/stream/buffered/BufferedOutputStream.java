@@ -3,10 +3,11 @@ package info.h417.model.stream.buffered;
 import info.h417.model.stream.BaseOutputStream;
 
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 public class BufferedOutputStream extends BaseOutputStream {
+
     private BufferedWriter bufferedWriter;
 
     /**
@@ -25,10 +26,7 @@ public class BufferedOutputStream extends BaseOutputStream {
      */
     @Override
     public void create() throws IOException {
-        super.create();
-        if(bufferedWriter == null){
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(out));
-        }
+        this.bufferedWriter = new BufferedWriter(new FileWriter(filename));
     }
 
     /**
@@ -38,8 +36,7 @@ public class BufferedOutputStream extends BaseOutputStream {
      */
     @Override
     public void close() throws IOException {
-        super.close();
-        bufferedWriter.close();
+        this.bufferedWriter.close();
     }
 
     /**
@@ -51,7 +48,7 @@ public class BufferedOutputStream extends BaseOutputStream {
     @Override
     public void writeln(String line) throws IOException {
 
-        bufferedWriter.write(line + "\n");
-        bufferedWriter.flush();
+        this.bufferedWriter.write(line + "\n");
+        this.bufferedWriter.flush();
     }
 }

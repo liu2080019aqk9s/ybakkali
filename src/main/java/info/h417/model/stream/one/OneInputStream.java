@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class OneInputStream extends BaseInputStream {
 
-    FileReader fileReader;
+    private FileReader fileReader;
 
     /**
      * Constructor of an inputStream that reads one character at time

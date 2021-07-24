@@ -5,6 +5,9 @@ import info.h417.model.stream.BaseInputStream;
 import info.h417.model.stream.Generator;
 
 import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Random;
 
 public class Randjump extends BaseAlgo{
@@ -29,7 +32,7 @@ public class Randjump extends BaseAlgo{
         int sum = 0;
         BaseInputStream inputStream = generator.getInputStream(filename);
         inputStream.open();
-        long size = inputStream.sizeFile();
+        long size = FileChannel.open(Paths.get(filename), StandardOpenOption.READ).size();
         long p;
         Random generator = new Random(15000);
         for(int i = 0; i < j; i++){

@@ -2,13 +2,15 @@ package info.h417.model.stream.oneBuffer;
 
 import info.h417.model.stream.BaseOutputStream;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 
 public class OneBufferOutputStream extends BaseOutputStream {
 
-    private final byte[] buffer;
+    private FileWriter fileWriter;
+    private final char[] buffer;
     private int cursorPosition;
 
     /**
@@ -19,8 +21,13 @@ public class OneBufferOutputStream extends BaseOutputStream {
      */
     public OneBufferOutputStream(String filename,int sizeBuffer) {
         super(filename);
-        this.buffer = new byte[sizeBuffer];
+        this.buffer = new char[sizeBuffer];
         this.cursorPosition = 0;
+    }
+
+    @Override
+    public void create() throws IOException {
+        this.fileWriter = new FileWriter(filename);
     }
 
     /**
@@ -30,10 +37,10 @@ public class OneBufferOutputStream extends BaseOutputStream {
      */
     @Override
     public void close() throws IOException {
-        if (cursorPosition > 0) {
+        if (this.cursorPosition > 0) {
             writeIntoFile();
         }
-        super.close();
+        this.fileWriter.close();
     }
 
     /**
@@ -45,16 +52,14 @@ public class OneBufferOutputStream extends BaseOutputStream {
     @Override
     public void writeln(String line) throws IOException {
 
-        byte[] lineBytes = line.getBytes(StandardCharsets.UTF_8);
-
-        for (int i = 0; i <= lineBytes.length; i++) {
-            if (cursorPosition == buffer.length) {
+        for (int i = 0; i <= line.length(); i++) {
+            if (this.cursorPosition == this.buffer.length) {
                 writeIntoFile();
             }
 
-            byte b = (i < lineBytes.length) ? lineBytes[i] : (byte)'\n';
+            char b = (i < line.length()) ? line.charAt(i) : '\n';
             this.buffer[cursorPosition] = b;
-            cursorPosition++;
+            this.cursorPosition++;
         }
     }
 
@@ -65,7 +70,8 @@ public class OneBufferOutputStream extends BaseOutputStream {
      * @throws IOException If some I/O error occurs
      */
     private void writeIntoFile() throws IOException {
-        out.write(buffer, 0, cursorPosition);
+        this.fileWriter.write(buffer, 0, cursorPosition);
+        this.fileWriter.flush();
         this.cursorPosition = 0;
     }
 }

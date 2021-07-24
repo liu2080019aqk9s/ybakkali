@@ -8,11 +8,14 @@ import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class MMapInputStream extends BaseInputStream {
+
     private final int nbCharacters;
     private MappedByteBuffer buffer;
-    private FileChannel fc;
+    private FileChannel fileChannel;
     private boolean seek;
 
     /**
@@ -35,10 +38,7 @@ public class MMapInputStream extends BaseInputStream {
      */
     @Override
     public void open() throws IOException {
-        super.open();
-        if(in != null){
-            fc = in.getChannel();
-        }
+        this.fileChannel = FileChannel.open(Paths.get(filename), StandardOpenOption.READ);
     }
 
     /**
@@ -48,8 +48,7 @@ public class MMapInputStream extends BaseInputStream {
      */
     @Override
     public void close() throws IOException {
-        super.close();
-        fc.close();
+        this.fileChannel.close();
     }
 
     /**
@@ -60,8 +59,8 @@ public class MMapInputStream extends BaseInputStream {
      */
     @Override
     public void seek(long pos) throws IOException {
-        super.seek(pos);
-        seek = true;
+        this.fileChannel.position(pos);
+        this.seek = true;
     }
 
     /**
@@ -72,7 +71,7 @@ public class MMapInputStream extends BaseInputStream {
      */
     @Override
     public boolean end_of_stream() throws IOException {
-        return fc.position() >= fc.size() && !buffer.hasRemaining();
+        return this.fileChannel.size() == this.fileChannel.position() && !this.buffer.hasRemaining();
     }
 
     /**
@@ -93,11 +92,11 @@ public class MMapInputStream extends BaseInputStream {
 
         while(!end_of_stream() && loop){
 
-            if (!buffer.hasRemaining() || seek) {
+            if (!this.buffer.hasRemaining() || this.seek) {
                 getNextElement();
             }
 
-            byte b = buffer.get();
+            byte b = this.buffer.get();
             if (b == '\n') {
                 loop = false;
             } else {
@@ -115,9 +114,9 @@ public class MMapInputStream extends BaseInputStream {
      */
     private void getNextElement() throws IOException {
 
-        long n = (fc.position() + nbCharacters < fc.size()) ? nbCharacters : fc.size() - fc.position();
-        this.buffer = fc.map(FileChannel.MapMode.READ_ONLY, fc.position(), n);
-        fc.position(fc.position() + n);
-        seek = false;
+        long n = (fileChannel.position() + nbCharacters < fileChannel.size()) ? nbCharacters : fileChannel.size() - fileChannel.position();
+        this.buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, fileChannel.position(), n);
+        this.fileChannel.position(fileChannel.position() + n);
+        this.seek = false;
     }
 }

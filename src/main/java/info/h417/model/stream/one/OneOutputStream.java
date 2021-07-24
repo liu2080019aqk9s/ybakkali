@@ -1,11 +1,13 @@
 package info.h417.model.stream.one;
 
 import info.h417.model.stream.BaseOutputStream;
-
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class OneOutputStream extends BaseOutputStream {
+
+    private FileWriter fileWriter;
 
     /**
      * Constructor of an outputStream that write one character at time
@@ -16,6 +18,16 @@ public class OneOutputStream extends BaseOutputStream {
         super(filename);
     }
 
+    @Override
+    public void create() throws IOException {
+        this.fileWriter = new FileWriter(filename);
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.fileWriter.close();
+    }
+
     /**
      * Write a string to the stream and terminate this stream with the newline character.
      *
@@ -24,9 +36,11 @@ public class OneOutputStream extends BaseOutputStream {
      */
     @Override
     public void writeln(String line) throws IOException {
-        for(byte character : line.getBytes(StandardCharsets.UTF_8)){
-            out.write(character);
+        for(char character : line.toCharArray()){
+            fileWriter.write(character);
+            fileWriter.flush();
         }
-        out.write((byte)'\n');
+        fileWriter.write("\n");
+        fileWriter.flush();
     }
 }
