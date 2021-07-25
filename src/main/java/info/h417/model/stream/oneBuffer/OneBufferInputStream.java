@@ -70,7 +70,7 @@ public class OneBufferInputStream extends BaseInputStream {
      */
     @Override
     public boolean end_of_stream() throws IOException {
-        return !this.fileReader.ready() && cursorPosition == limit;
+        return cursorPosition == limit && !this.fileReader.ready();
     }
 
     @Override
