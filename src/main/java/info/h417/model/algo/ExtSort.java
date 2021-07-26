@@ -145,7 +145,13 @@ public class ExtSort extends BaseAlgo {
 
         baseOutputStream.create();
         while (!current.isEmpty()) {
-            int min = current.indexOf(Collections.min(current, Comparator.comparing(o -> o.get(k))));
+            int min = 0;
+            for (int i = 1; i < current.size(); i++) {
+                if (current.get(i).get(k).compareTo(current.get(min).get(k)) < 0) {
+                    min = i;
+                }
+            }
+
             baseOutputStream.writeln(String.join(",", current.remove(min)));
             if (!toMergeList.get(min).end_of_stream()) {
                 current.add(min, Arrays.asList(toMergeList.get(min).readln().split(",", -1)));
