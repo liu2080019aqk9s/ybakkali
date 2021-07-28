@@ -5,8 +5,7 @@ import info.h417.model.stream.Generator;
 
 import java.io.IOException;
 
-public class Length extends BaseAlgo{
-
+public class Length extends BaseAlgo {
 
     /**
      * A generic Constructor that takes a generator as parameter
@@ -19,9 +18,11 @@ public class Length extends BaseAlgo{
 
 
     /**
-     * @param filename
-     * @return
-     * @throws IOException
+     * Compute the sum of the length of all the lines contained in the filename.
+     *
+     * @param filename The filename
+     * @return The computed length
+     * @throws IOException If some I/O error occurs
      */
     public int begin(String filename) throws IOException {
         int sum = 0;

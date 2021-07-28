@@ -12,9 +12,10 @@ import java.util.*;
 public class ExtSort extends BaseAlgo {
 
     /**
-     * A generic Constructor that takes a generator as parameter
+     * A generic Constructor that takes a generator as parameter.
      *
-     * @param generator The generator
+     * @param generator The read generator
+     * @param writeGenerator The write generator
      */
     public ExtSort(Generator generator,Generator writeGenerator) {
         super(generator,writeGenerator);
@@ -22,11 +23,13 @@ public class ExtSort extends BaseAlgo {
     }
 
     /**
-     * @param fileName
-     * @param k
-     * @param M
-     * @param d
-     * @throws IOException
+     * Launch the ExtSort algorithm on the specified fileName with the specified parameters.
+     *
+     * @param fileName The fileName
+     * @param k The k-th column to sort
+     * @param M The internal memory approximate size
+     * @param d The maximum number of files to merge at the same time
+     * @throws IOException If some I/O error occurs
      */
     public void begin(String fileName, int k, int M, int d) throws IOException {
         BaseInputStream inputStream = generator.getInputStream(fileName);
@@ -46,13 +49,15 @@ public class ExtSort extends BaseAlgo {
     }
 
     /**
-     * @param k
-     * @param M
-     * @param inputStream
-     * @param tempFilesNames
-     * @param queue
-     * @param buffer
-     * @throws IOException
+     * Initialise the files to begin the algorithm.
+     *
+     * @param k The k-th column to sort
+     * @param M The internal memory approximate size
+     * @param inputStream The input stream
+     * @param tempFilesNames The list of all the temporary files
+     * @param queue The queue
+     * @param buffer The buffer
+     * @throws IOException If some I/O error occurs
      */
     private void filesInitialisation(int k, int M, BaseInputStream inputStream, List<String> tempFilesNames, Queue<BaseInputStream> queue, List<List<String>> buffer) throws IOException {
         int length = 0, i = 0;
@@ -84,12 +89,14 @@ public class ExtSort extends BaseAlgo {
     }
 
     /**
-     * @param k
-     * @param d
-     * @param outputStream
-     * @param tempFilesNames
-     * @param queue
-     * @throws IOException
+     * Run the ExtSort algorithm.
+     *
+     * @param k The k-th column to sort
+     * @param d The maximum number of files to merge at the same time
+     * @param outputStream The output stream
+     * @param tempFilesNames The list of all the temporary files
+     * @param queue The queue
+     * @throws IOException If some I/O error occurs
      */
     private void multiWayMerge(int k, int d, BaseOutputStream outputStream, List<String> tempFilesNames, Queue<BaseInputStream> queue) throws IOException {
         int i = 0;
@@ -124,10 +131,12 @@ public class ExtSort extends BaseAlgo {
     }
 
     /**
-     * @param toMergeList
-     * @param baseOutputStream
-     * @param k
-     * @throws IOException
+     * Merge the temporary files.
+     *
+     * @param toMergeList The list of the temporary files to merge
+     * @param baseOutputStream The base output stream
+     * @param k The k-th column to sort
+     * @throws IOException If some I/O error occurs
      */
     private void merge(List<BaseInputStream> toMergeList, BaseOutputStream baseOutputStream, int k) throws IOException {
         List<List<String>> current = new ArrayList<>(toMergeList.size());
@@ -164,8 +173,10 @@ public class ExtSort extends BaseAlgo {
     }
 
     /**
-     * @param tempFilesNames
-     * @throws IOException
+     * Delete the temporary files.
+     *
+     * @param tempFilesNames The list of all the temporary files
+     * @throws IOException If some I/O error occurs
      */
     private void deleteTemporaryFiles(List<String> tempFilesNames) throws IOException {
         for (String tempFileName : tempFilesNames) {

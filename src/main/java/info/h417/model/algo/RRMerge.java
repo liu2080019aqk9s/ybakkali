@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RRMerge extends BaseAlgo{
+public class RRMerge extends BaseAlgo {
 
     /**
      * A generic Constructor that takes a generator as parameter
      *
-     * @param generator
-     * @param writeGenerator
+     * @param generator The read generator
+     * @param writeGenerator The write generator
      */
     public RRMerge(Generator generator,Generator writeGenerator) {
         super(generator,writeGenerator);
@@ -24,12 +24,14 @@ public class RRMerge extends BaseAlgo{
 
 
     /**
-     * @param fileNames
-     * @throws IOException
+     * Run the RRMerge algorithm.
+     *
+     * @param fileNames The list of all the filenames to merge
+     * @throws IOException If some I/O error occurs
      */
     public void begin(String... fileNames) throws IOException {
         ArrayList<BaseInputStream> inputStreams = new ArrayList<>();
-        for(String fileName: fileNames){
+        for(String fileName: fileNames) {
             BaseInputStream inputStream = generator.getInputStream(fileName);
             inputStreams.add(inputStream);
             inputStream.open();

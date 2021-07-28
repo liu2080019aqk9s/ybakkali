@@ -8,23 +8,25 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Random;
 
-public class Randjump extends BaseAlgo{
+public class Randjump extends BaseAlgo {
 
 
     /**
      * A generic Constructor that takes a generator as parameter
      *
-     * @param generator
+     * @param generator The generator
      */
     public Randjump(Generator generator) {
         super(generator);
     }
 
     /**
-     * @param filename
-     * @param j
-     * @return
-     * @throws IOException
+     * Run the Randjump algorithm.
+     *
+     * @param filename The filename
+     * @param j The number of iterations to do
+     * @return The computed length
+     * @throws IOException If some I/O error occurs
      */
     public int begin(String filename, int j) throws IOException {
         int sum = 0;

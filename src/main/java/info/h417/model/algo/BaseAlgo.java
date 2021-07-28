@@ -11,7 +11,7 @@ public class BaseAlgo {
     /**
      * A generic Constructor that takes a generator as parameter
      *
-     * @param generator
+     * @param generator The generator
      */
     public BaseAlgo(Generator generator) {
         this.generator = generator;
@@ -21,7 +21,8 @@ public class BaseAlgo {
     /**
      * A generic Constructor that takes a generator as parameter
      *
-     * @param generator
+     * @param generator The read generator
+     * @param writeGenerator The write generator
      */
     public BaseAlgo(Generator generator,Generator writeGenerator) {
         this.generator = generator;
