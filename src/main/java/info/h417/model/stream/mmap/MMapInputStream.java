@@ -83,6 +83,10 @@ public class MMapInputStream extends BaseInputStream {
     @Override
     public String readln() throws IOException {
 
+        if (end_of_stream()) {
+            return null;
+        }
+
         if (this.buffer == null) {
             getNextElement();
         }
