@@ -1,0 +1,161 @@
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              2  Buffered        One  avgt    3  0,001 ± 0,001   s/op
+RRmerge.rrmerge              2  Buffered   Buffered  avgt    3  0,001 ± 0,001   s/op
+RRmerge.rrmerge              2  Buffered  OneBuffer  avgt    3  0,001 ± 0,002   s/op
+RRmerge.rrmerge              2  Buffered       Mmap  avgt    3  0,001 ± 0,003   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              3  Buffered        One  avgt    3  0,002 ± 0,002   s/op
+RRmerge.rrmerge              3  Buffered   Buffered  avgt    3  0,001 ± 0,001   s/op
+RRmerge.rrmerge              3  Buffered  OneBuffer  avgt    3  0,001 ± 0,002   s/op
+RRmerge.rrmerge              3  Buffered       Mmap  avgt    3  0,001 ± 0,002   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score    Error  Units
+RRmerge.rrmerge              4  Buffered        One  avgt    3  0,003 ±  0,014   s/op
+RRmerge.rrmerge              4  Buffered   Buffered  avgt    3  0,001 ±  0,001   s/op
+RRmerge.rrmerge              4  Buffered  OneBuffer  avgt    3  0,001 ±  0,004   s/op
+RRmerge.rrmerge              4  Buffered       Mmap  avgt    3  0,001 ±  0,001   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              5  Buffered        One  avgt    3  0,003 ± 0,009   s/op
+RRmerge.rrmerge              5  Buffered   Buffered  avgt    3  0,001 ± 0,002   s/op
+RRmerge.rrmerge              5  Buffered  OneBuffer  avgt    3  0,001 ± 0,004   s/op
+RRmerge.rrmerge              5  Buffered       Mmap  avgt    3  0,001 ± 0,001   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              6  Buffered        One  avgt    3  0,009 ± 0,014   s/op
+RRmerge.rrmerge              6  Buffered   Buffered  avgt    3  0,003 ± 0,009   s/op
+RRmerge.rrmerge              6  Buffered  OneBuffer  avgt    3  0,002 ± 0,014   s/op
+RRmerge.rrmerge              6  Buffered       Mmap  avgt    3  0,001 ± 0,003   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              7  Buffered        One  avgt    3  1,412 ± 0,371   s/op
+RRmerge.rrmerge              7  Buffered   Buffered  avgt    3  0,079 ± 0,017   s/op
+RRmerge.rrmerge              7  Buffered  OneBuffer  avgt    3  0,014 ± 0,016   s/op
+RRmerge.rrmerge              7  Buffered       Mmap  avgt    3  0,015 ± 0,088   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              8  Buffered        One  avgt    3  6,617 ± 0,070   s/op
+RRmerge.rrmerge              8  Buffered   Buffered  avgt    3  0,417 ± 0,304   s/op
+RRmerge.rrmerge              8  Buffered  OneBuffer  avgt    3  0,044 ± 0,024   s/op
+RRmerge.rrmerge              8  Buffered       Mmap  avgt    3  0,055 ± 0,131   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt   Score   Error  Units
+RRmerge.rrmerge              9  Buffered        One  avgt    3  14,559 ± 0,577   s/op
+RRmerge.rrmerge              9  Buffered   Buffered  avgt    3   0,747 ± 0,136   s/op
+RRmerge.rrmerge              9  Buffered  OneBuffer  avgt    3   0,096 ± 0,027   s/op
+RRmerge.rrmerge              9  Buffered       Mmap  avgt    3   0,114 ± 0,315   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt   Score   Error  Units
+RRmerge.rrmerge             10  Buffered        One  avgt    3  52,022 ± 2,044   s/op
+RRmerge.rrmerge             10  Buffered   Buffered  avgt    3   1,445 ± 0,575   s/op
+RRmerge.rrmerge             10  Buffered  OneBuffer  avgt    3   0,363 ± 0,289   s/op
+RRmerge.rrmerge             10  Buffered       Mmap  avgt    3   0,348 ± 0,382   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt    Score   Error  Units
+RRmerge.rrmerge             11  Buffered        One  avgt    3  128,359 ± 3,225   s/op
+RRmerge.rrmerge             11  Buffered   Buffered  avgt    3    4,710 ± 0,516   s/op
+RRmerge.rrmerge             11  Buffered  OneBuffer  avgt    3    0,819 ± 0,086   s/op
+RRmerge.rrmerge             11  Buffered       Mmap  avgt    3    0,745 ± 1,261   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt    Score   Error  Units
+RRmerge.rrmerge             12  Buffered        One  avgt    3  209,653 ± 5,975   s/op
+RRmerge.rrmerge             12  Buffered   Buffered  avgt    3    5,946 ± 0,133   s/op
+RRmerge.rrmerge             12  Buffered  OneBuffer  avgt    3    1,413 ± 0,133   s/op
+RRmerge.rrmerge             12  Buffered       Mmap  avgt    3    1,243 ± 1,637   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge             13  Buffered  OneBuffer  avgt    3  2,617 ± 1,429   s/op
+RRmerge.rrmerge             13  Buffered       Mmap  avgt    3  2,072 ± 1,050   s/op
+
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge             14  Buffered  OneBuffer  avgt    3  3,666 ± 1,893   s/op
+RRmerge.rrmerge             14  Buffered       Mmap  avgt    3  2,828 ± 1,951   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge             15  Buffered  OneBuffer  avgt    3  4,988 ± 5,945   s/op
+RRmerge.rrmerge             15  Buffered       Mmap  avgt    3  3,918 ± 0,118   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge             16  Buffered  OneBuffer  avgt    3  7,983 ± 2,347   s/op
+RRmerge.rrmerge             16  Buffered       Mmap  avgt    3  6,175 ± 1,347   s/op
+
+Benchmark        (filesNumber)   (xPair)    (yPair)  Mode  Cnt   Score   Error  Units
+RRmerge.rrmerge             17  Buffered  OneBuffer  avgt    3  10,174 ± 4,360   s/op
+RRmerge.rrmerge             17  Buffered       Mmap  avgt    3   8,857 ± 1,519   s/op
+
+Benchmark        (filesNumber)   (xPair)   (yPair)  Mode  Cnt   Score   Error  Units
+RRmerge.rrmerge             13  Buffered  Buffered  avgt    3   9,867 ± 0,813   s/op
+RRmerge.rrmerge             14  Buffered  Buffered  avgt    3  17,173 ± 0,347   s/op
+RRmerge.rrmerge             15  Buffered  Buffered  avgt    3  29,219 ± 2,475   s/op
+RRmerge.rrmerge             16  Buffered  Buffered  avgt    3  37,800 ± 9,129   s/op
+RRmerge.rrmerge             17  Buffered  Buffered  avgt    3  47,005 ± 5,915   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              2     Mmap        One  avgt    3  0,003 ± 0,009   s/op
+RRmerge.rrmerge              2     Mmap   Buffered  avgt    3  0,002 ± 0,009   s/op
+RRmerge.rrmerge              2     Mmap  OneBuffer  avgt    3  0,002 ± 0,005   s/op
+RRmerge.rrmerge              2     Mmap       Mmap  avgt    3  0,002 ± 0,007   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              3     Mmap        One  avgt    3  0,003 ± 0,011   s/op
+RRmerge.rrmerge              3     Mmap   Buffered  avgt    3  0,002 ± 0,009   s/op
+RRmerge.rrmerge              3     Mmap  OneBuffer  avgt    3  0,002 ± 0,007   s/op
+RRmerge.rrmerge              3     Mmap       Mmap  avgt    3  0,001 ± 0,005   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              4     Mmap        One  avgt    3  0,004 ± 0,015   s/op
+RRmerge.rrmerge              4     Mmap   Buffered  avgt    3  0,002 ± 0,004   s/op
+RRmerge.rrmerge              4     Mmap  OneBuffer  avgt    3  0,003 ± 0,004   s/op
+RRmerge.rrmerge              4     Mmap       Mmap  avgt    3  0,003 ± 0,012   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              5     Mmap        One  avgt    3  0,005 ± 0,014   s/op
+RRmerge.rrmerge              5     Mmap   Buffered  avgt    3  0,004 ± 0,002   s/op
+RRmerge.rrmerge              5     Mmap  OneBuffer  avgt    3  0,004 ± 0,005   s/op
+RRmerge.rrmerge              5     Mmap       Mmap  avgt    3  0,003 ± 0,004   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              6     Mmap        One  avgt    3  0,015 ± 0,066   s/op
+RRmerge.rrmerge              6     Mmap   Buffered  avgt    3  0,009 ± 0,019   s/op
+RRmerge.rrmerge              6     Mmap  OneBuffer  avgt    3  0,010 ± 0,010   s/op
+RRmerge.rrmerge              6     Mmap       Mmap  avgt    3  0,010 ± 0,038   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt  Score   Error  Units
+RRmerge.rrmerge              7     Mmap        One  avgt    3  2,606 ± 1,178   s/op
+RRmerge.rrmerge              7     Mmap   Buffered  avgt    3  1,285 ± 0,991   s/op
+RRmerge.rrmerge              7     Mmap  OneBuffer  avgt    3  1,247 ± 0,091   s/op
+RRmerge.rrmerge              7     Mmap       Mmap  avgt    3  1,230 ± 1,080   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt   Score   Error  Units
+RRmerge.rrmerge              8     Mmap        One  avgt    3  12,176 ± 3,345   s/op
+RRmerge.rrmerge              8     Mmap   Buffered  avgt    3   5,874 ± 0,646   s/op
+RRmerge.rrmerge              8     Mmap  OneBuffer  avgt    3   5,451 ± 0,023   s/op
+RRmerge.rrmerge              8     Mmap       Mmap  avgt    3   5,490 ± 0,176   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt   Score   Error  Units
+RRmerge.rrmerge              9     Mmap        One  avgt    3  26,428 ± 0,095   s/op
+RRmerge.rrmerge              9     Mmap   Buffered  avgt    3  12,673 ± 0,134   s/op
+RRmerge.rrmerge              9     Mmap  OneBuffer  avgt    3  11,928 ± 0,439   s/op
+RRmerge.rrmerge              9     Mmap       Mmap  avgt    3  12,096 ± 0,135   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt   Score   Error  Units
+RRmerge.rrmerge             10     Mmap        One  avgt    3  93,020 ± 1,181   s/op
+RRmerge.rrmerge             10     Mmap   Buffered  avgt    3  42,662 ± 2,218   s/op
+RRmerge.rrmerge             10     Mmap  OneBuffer  avgt    3  41,538 ± 3,652   s/op
+RRmerge.rrmerge             10     Mmap       Mmap  avgt    3  41,249 ± 1,494   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt    Score   Error  Units
+RRmerge.rrmerge             11     Mmap        One  avgt    3  231,510 ± 9,820   s/op
+RRmerge.rrmerge             11     Mmap   Buffered  avgt    3  107,013 ± 7,255   s/op
+RRmerge.rrmerge             11     Mmap  OneBuffer  avgt    3  102,849 ± 1,656   s/op
+RRmerge.rrmerge             11     Mmap       Mmap  avgt    3  103,288 ± 4,973   s/op
+
+Benchmark        (filesNumber)  (xPair)    (yPair)  Mode  Cnt    Score   Error  Units
+RRmerge.rrmerge             12     Mmap        One  avgt    3  375,480 ± 2,155   s/op
+RRmerge.rrmerge             12     Mmap   Buffered  avgt    3  170,846 ± 7,176   s/op
+RRmerge.rrmerge             12     Mmap  OneBuffer  avgt    3  166,711 ± 1,878   s/op
+RRmerge.rrmerge             12     Mmap       Mmap  avgt    3  165,711 ± 2,002   s/op
+
+
