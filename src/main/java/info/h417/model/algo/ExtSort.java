@@ -102,7 +102,7 @@ public class ExtSort extends BaseAlgo {
         int i = 0;
         while (!queue.isEmpty()) {
 
-            List<BaseInputStream> toMergeList = new ArrayList<>();
+            PriorityQueue<Map.Entry<BaseInputStream, List<String>>> toMergePriorityQueue = new PriorityQueue<>(d, Comparator.comparing(o -> o.getValue().get(k)));
 
             BaseOutputStream baseOutputStream;
             String tempFilename = "mergeFile" + i;
@@ -116,11 +116,15 @@ public class ExtSort extends BaseAlgo {
 
             int a = 0;
             while (!queue.isEmpty() && a < d) {
-                toMergeList.add(queue.remove());
+                BaseInputStream tempBaseInputStream = queue.remove();
+                tempBaseInputStream.open();
+                List<String> tempLine = Arrays.asList(tempBaseInputStream.readln().split(",", -1));
+                Map.Entry<BaseInputStream, List<String>> tempEntry = new AbstractMap.SimpleEntry<>(tempBaseInputStream, tempLine);
+                toMergePriorityQueue.add(tempEntry);
                 a++;
             }
 
-            merge(toMergeList, baseOutputStream, k);
+            merge(toMergePriorityQueue, baseOutputStream);
 
             if (!queue.isEmpty()) {
                 queue.add(generator.getInputStream(tempFilename));
@@ -133,42 +137,26 @@ public class ExtSort extends BaseAlgo {
     /**
      * Merge the temporary files.
      *
-     * @param toMergeList The list of the temporary files to merge
+     * @param toMergePriorityQueue The queue of the temporary files to merge
      * @param baseOutputStream The base output stream
-     * @param k The k-th column to sort
      * @throws IOException If some I/O error occurs
      */
-    private void merge(List<BaseInputStream> toMergeList, BaseOutputStream baseOutputStream, int k) throws IOException {
-        List<List<String>> current = new ArrayList<>(toMergeList.size());
-
-        for (int i = 0; i < toMergeList.size(); i++) {
-            BaseInputStream baseInputStream = toMergeList.get(i);
-            baseInputStream.open();
-            if (!baseInputStream.end_of_stream()) {
-                current.add(Arrays.asList(baseInputStream.readln().split(",",-1)));
-            } else {
-                toMergeList.remove(i);
-                i--;
-            }
-        }
+    private void merge(PriorityQueue<Map.Entry<BaseInputStream, List<String>>> toMergePriorityQueue, BaseOutputStream baseOutputStream) throws IOException {
 
         baseOutputStream.create();
-        while (!current.isEmpty()) {
-            int min = 0;
-            for (int i = 1; i < current.size(); i++) {
-                if (current.get(i).get(k).compareTo(current.get(min).get(k)) < 0) {
-                    min = i;
-                }
-            }
 
-            baseOutputStream.writeln(String.join(",", current.remove(min)));
-            if (!toMergeList.get(min).end_of_stream()) {
-                current.add(min, Arrays.asList(toMergeList.get(min).readln().split(",", -1)));
+        while (!toMergePriorityQueue.isEmpty()) {
+            Map.Entry<BaseInputStream, List<String>> currentStream = toMergePriorityQueue.remove();
+            baseOutputStream.writeln(String.join(",", currentStream.getValue()));
+            if (!currentStream.getKey().end_of_stream()) {
+                List<String> tempLine = Arrays.asList(currentStream.getKey().readln().split(",", -1));
+                currentStream.setValue(tempLine);
+                toMergePriorityQueue.add(currentStream);
             } else {
-                toMergeList.get(min).close();
-                toMergeList.remove(min);
+                currentStream.getKey().close();
             }
         }
+
         baseOutputStream.close();
     }
 
