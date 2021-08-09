@@ -19,7 +19,7 @@ public class ExtSort extends BaseAlgo {
      */
     public ExtSort(Generator generator,Generator writeGenerator) {
         super(generator,writeGenerator);
-        this.outputString = "ExtSortOutput.csv";
+        this.outputFilename = "ExtSortOutput.csv";
     }
 
     /**
@@ -32,20 +32,14 @@ public class ExtSort extends BaseAlgo {
      * @throws IOException If some I/O error occurs
      */
     public void begin(String fileName, int k, int M, int d) throws IOException {
-        BaseInputStream inputStream = generator.getInputStream(fileName);
-        BaseOutputStream outputStream = writeGenerator.getOutputStream(outputString);
-        inputStream.open();
-        outputStream.create();
 
         List<String> tempFilesNames = new ArrayList<>();
         Queue<BaseInputStream> queue = new LinkedList<>();
-        List<List<String>> buffer = new ArrayList<>();
 
-        filesInitialisation(k - 1, M, inputStream, tempFilesNames, queue, buffer);
-        multiWayMerge(k - 1, d, outputStream, tempFilesNames, queue);
+        filesInitialisation(k - 1, M, fileName, tempFilesNames, queue);
+        multiWayMerge(k - 1, d, tempFilesNames, queue);
 
         deleteTemporaryFiles(tempFilesNames);
-        inputStream.close();
     }
 
     /**
@@ -53,14 +47,18 @@ public class ExtSort extends BaseAlgo {
      *
      * @param k The k-th column to sort
      * @param M The internal memory approximate size
-     * @param inputStream The input stream
+     * @param fileName The input stream fileName
      * @param tempFilesNames The list of all the temporary files
      * @param queue The queue
-     * @param buffer The buffer
      * @throws IOException If some I/O error occurs
      */
-    private void filesInitialisation(int k, int M, BaseInputStream inputStream, List<String> tempFilesNames, Queue<BaseInputStream> queue, List<List<String>> buffer) throws IOException {
+    private void filesInitialisation(int k, int M, String fileName, List<String> tempFilesNames, Queue<BaseInputStream> queue) throws IOException {
+
+        BaseInputStream inputStream = generator.getInputStream(fileName);
+        inputStream.open();
+        List<List<String>> buffer = new ArrayList<>();
         int length = 0, i = 0;
+
         while (!inputStream.end_of_stream()) {
             String tempLine = inputStream.readln();
             length += tempLine.length();
@@ -69,7 +67,7 @@ public class ExtSort extends BaseAlgo {
             if (length >= M || inputStream.end_of_stream()) {
                 String tempFilename = "tempFile" + i;
                 tempFilesNames.add(tempFilename);
-                BaseOutputStream tempOutputStream = generator.getOutputStream(tempFilename);
+                BaseOutputStream tempOutputStream = writeGenerator.getOutputStream(tempFilename);
                 tempOutputStream.create();
 
                 buffer.sort(Comparator.comparing(o -> o.get(k)));
@@ -79,13 +77,13 @@ public class ExtSort extends BaseAlgo {
                 }
                 tempOutputStream.close();
 
-                BaseInputStream tempInputStream = generator.getInputStream(tempFilename);
-                queue.add(tempInputStream);
+                queue.add(generator.getInputStream(tempFilename));
                 i++;
                 length = 0;
                 buffer.clear();
             }
         }
+        inputStream.close();
     }
 
     /**
@@ -93,25 +91,24 @@ public class ExtSort extends BaseAlgo {
      *
      * @param k The k-th column to sort
      * @param d The maximum number of files to merge at the same time
-     * @param outputStream The output stream
      * @param tempFilesNames The list of all the temporary files
      * @param queue The queue
      * @throws IOException If some I/O error occurs
      */
-    private void multiWayMerge(int k, int d, BaseOutputStream outputStream, List<String> tempFilesNames, Queue<BaseInputStream> queue) throws IOException {
+    private void multiWayMerge(int k, int d, List<String> tempFilesNames, Queue<BaseInputStream> queue) throws IOException {
         int i = 0;
         while (!queue.isEmpty()) {
 
             PriorityQueue<Map.Entry<BaseInputStream, List<String>>> toMergePriorityQueue = new PriorityQueue<>(d, Comparator.comparing(o -> o.getValue().get(k)));
 
-            BaseOutputStream baseOutputStream;
+            String outputStreamFilename;
             String tempFilename = "mergeFile" + i;
 
             if (queue.size() <= d) {
-                baseOutputStream = outputStream;
+                outputStreamFilename = this.outputFilename;
             } else {
                 tempFilesNames.add(tempFilename);
-                baseOutputStream = generator.getOutputStream(tempFilename);
+                outputStreamFilename = tempFilename;
             }
 
             int a = 0;
@@ -124,7 +121,7 @@ public class ExtSort extends BaseAlgo {
                 a++;
             }
 
-            merge(toMergePriorityQueue, baseOutputStream);
+            merge(toMergePriorityQueue, outputStreamFilename);
 
             if (!queue.isEmpty()) {
                 queue.add(generator.getInputStream(tempFilename));
@@ -138,22 +135,23 @@ public class ExtSort extends BaseAlgo {
      * Merge the temporary files.
      *
      * @param toMergePriorityQueue The queue of the temporary files to merge
-     * @param baseOutputStream The base output stream
+     * @param filename The base output stream filename
      * @throws IOException If some I/O error occurs
      */
-    private void merge(PriorityQueue<Map.Entry<BaseInputStream, List<String>>> toMergePriorityQueue, BaseOutputStream baseOutputStream) throws IOException {
+    private void merge(PriorityQueue<Map.Entry<BaseInputStream, List<String>>> toMergePriorityQueue, String filename) throws IOException {
 
+        BaseOutputStream baseOutputStream = writeGenerator.getOutputStream(filename);
         baseOutputStream.create();
 
         while (!toMergePriorityQueue.isEmpty()) {
-            Map.Entry<BaseInputStream, List<String>> currentStream = toMergePriorityQueue.remove();
-            baseOutputStream.writeln(String.join(",", currentStream.getValue()));
-            if (!currentStream.getKey().end_of_stream()) {
-                List<String> tempLine = Arrays.asList(currentStream.getKey().readln().split(",", -1));
-                currentStream.setValue(tempLine);
-                toMergePriorityQueue.add(currentStream);
+            Map.Entry<BaseInputStream, List<String>> currentInputStream = toMergePriorityQueue.remove();
+            baseOutputStream.writeln(String.join(",", currentInputStream.getValue()));
+            if (!currentInputStream.getKey().end_of_stream()) {
+                List<String> tempLine = Arrays.asList(currentInputStream.getKey().readln().split(",", -1));
+                currentInputStream.setValue(tempLine);
+                toMergePriorityQueue.add(currentInputStream);
             } else {
-                currentStream.getKey().close();
+                currentInputStream.getKey().close();
             }
         }
 

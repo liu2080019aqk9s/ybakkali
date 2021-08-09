@@ -19,7 +19,7 @@ public class RRMerge extends BaseAlgo {
      */
     public RRMerge(Generator generator,Generator writeGenerator) {
         super(generator,writeGenerator);
-        this.outputString = "RRMergeOutput.csv";
+        this.outputFilename = "RRMergeOutput.csv";
     }
 
 
@@ -37,7 +37,7 @@ public class RRMerge extends BaseAlgo {
             inputStream.open();
         }
 
-        BaseOutputStream outputStream =  writeGenerator.getOutputStream(outputString);
+        BaseOutputStream outputStream =  writeGenerator.getOutputStream(outputFilename);
         outputStream.create();
 
         List<BaseInputStream> activeInputStreams = new ArrayList<>(inputStreams);

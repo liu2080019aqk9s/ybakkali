@@ -6,7 +6,7 @@ import info.h417.model.stream.Generator;
 public class BaseAlgo {
     protected final Generator generator;
     protected Generator writeGenerator;
-    protected String outputString;
+    protected String outputFilename;
 
     /**
      * A generic Constructor that takes a generator as parameter
