@@ -73,6 +73,12 @@ public class OneBufferInputStream extends BaseInputStream {
         return cursorPosition == limit && !this.fileReader.ready();
     }
 
+    /**
+     * Read the next line from the stream
+     *
+     * @return If (end_of_stream) : Null Else : A line of the file text
+     * @throws IOException If some I/O error occurs
+     */
     @Override
     public String readln() throws IOException {
 

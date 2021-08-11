@@ -16,7 +16,7 @@ public abstract class BaseInputStream extends BaseStream {
     /**
      * Read the next line from the stream
      *
-     * @return A line of the file text
+     * @return If (end_of_stream) : Null Else : A line of the file text
      * @throws IOException If some I/O error occurs
      */
     public abstract String readln() throws IOException;
