@@ -26,13 +26,13 @@ public class Extsort {
             "aka_title.csv", "aka_name.csv", "movie_companies.csv", "movie_keyword.csv"})
     String file;
 
-    @Param({"2","3","4"})
+    @Param({"1","2","3","4","5","6","7","8","9","10","11","12"})
     int k;
 
-    //@Param({"16", "256", "4096", "65536", "262144", "524288", "768000", "1048576", "4194304", "16777216"})
-    int M = 524288;
+    @Param({"524288", "1048576", "4194304"})
+    int M;
 
-    @Param({"10","20","30"})
+    @Param({"5","10", "15", "20", "25", "30","35","40"})
     int d;
 
     @Param({"One", "Buffered", "OneBuffer", "Mmap"})
@@ -41,7 +41,7 @@ public class Extsort {
     @Param({"One", "Buffered", "OneBuffer", "Mmap"})
     String yPair;
 
-
+    int bufferSize = 524288;
 
     Generator readerGenerator;
     Generator writerGenerator;
@@ -57,10 +57,10 @@ public class Extsort {
                 readerGenerator = new BufferedGenerator();
                 break;
             case "OneBuffer":
-                readerGenerator = new OneBufferGenerator(M);
+                readerGenerator = new OneBufferGenerator(bufferSize);
                 break;
             case "Mmap":
-                readerGenerator = new MMapGenerator(M);
+                readerGenerator = new MMapGenerator(bufferSize);
                 break;
         }
 
@@ -72,10 +72,10 @@ public class Extsort {
                 writerGenerator = new BufferedGenerator();
                 break;
             case "OneBuffer":
-                writerGenerator = new OneBufferGenerator(M);
+                writerGenerator = new OneBufferGenerator(bufferSize);
                 break;
             case "Mmap":
-                writerGenerator = new MMapGenerator(M);
+                writerGenerator = new MMapGenerator(bufferSize);
                 break;
         }
     }

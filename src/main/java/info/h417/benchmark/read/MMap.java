@@ -21,8 +21,9 @@ public class MMap {
     Generator generator;
 
     @Param({"comp_cast_type.csv", "kind_type.csv", "company_type.csv", "role_type.csv", "link_type.csv", "info_type.csv",
-            "movie_link.csv", "complete_cast.csv", "keyword.csv", "company_name.csv", "movie_info_idx.csv",
-            "aka_title.csv", "aka_name.csv", "movie_companies.csv", "movie_keyword.csv"})
+        "movie_link.csv", "complete_cast.csv", "keyword.csv", "company_name.csv", "movie_info_idx.csv",
+        "aka_title.csv", "aka_name.csv", "movie_companies.csv", "movie_keyword.csv", "title.csv", "char_name.csv",
+        "name.csv", "person_info.csv", "movie_info.csv", "cast_info.csv"})
     String file;
 
     final String path = "database/imdb/";
@@ -30,8 +31,8 @@ public class MMap {
     @Param({"16", "256", "4096", "65536", "262144", "524288", "768000", "1048576", "4194304", "16777216"})
     int bufferSize;
 
-    @Param({"10", "1000", "10000", "100000"})
-    int j;
+    //@Param({"10", "1000", "10000", "100000"})
+    int j = 5;
 
     @Setup
     public void setup() {

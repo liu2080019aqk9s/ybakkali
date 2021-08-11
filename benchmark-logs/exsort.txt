@@ -1,109 +1,104 @@
-Benchmark            (M)  (d)            (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
-Extsort.extsort   524288   10  company_name.csv    2  Buffered     Mmap  avgt    3  2,294 ± 0,362   s/op
-Extsort.extsort  1048576   10  company_name.csv    2  Buffered     Mmap  avgt    3  2,171 ± 1,949   s/op
-Extsort.extsort  4194304   10  company_name.csv    2  Buffered     Mmap  avgt    3  1,584 ± 0,895   s/op
-
-
 Benchmark            (M)  (d)         (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
-Extsort.extsort   524288   10  aka_title.csv    2  Buffered     Mmap  avgt    3  5,756 ± 0,512   s/op
-Extsort.extsort  1048576   10  aka_title.csv    2  Buffered     Mmap  avgt    3  4,184 ± 0,139   s/op
-Extsort.extsort  4194304   10  aka_title.csv    2  Buffered     Mmap  avgt    3  3,011 ± 0,924   s/op
+Extsort.extsort   524288   10  aka_title.csv    2  Buffered     Mmap  avgt    3  4,198 ± 0,363   s/op
+Extsort.extsort  1048576   10  aka_title.csv    2  Buffered     Mmap  avgt    3  3,227 ± 0,122   s/op
+Extsort.extsort  4194304   10  aka_title.csv    2  Buffered     Mmap  avgt    3  2,504 ± 1,345   s/op
 
 Benchmark            (M)  (d)             (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
-Extsort.extsort   524288   10  movie_keyword.csv    2  Buffered     Mmap  avgt    3  35,842 ± 5,135   s/op
-Extsort.extsort  1048576   10  movie_keyword.csv    2  Buffered     Mmap  avgt    3  34,717 ± 3,526   s/op
-Extsort.extsort  4194304   10  movie_keyword.csv    2  Buffered     Mmap  avgt    3  27,661 ± 1,086   s/op
+Extsort.extsort   524288   10  movie_keyword.csv    2  Buffered     Mmap  avgt    3  11,397 ± 0,183   s/op
+Extsort.extsort  1048576   10  movie_keyword.csv    2  Buffered     Mmap  avgt    3  11,298 ± 0,076   s/op
+Extsort.extsort  4194304   10  movie_keyword.csv    2  Buffered     Mmap  avgt    3   9,405 ± 0,165   s/op
 
-Benchmark            (M)  (d)     (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
-Extsort.extsort   524288   10  title.csv    2  Buffered     Mmap  avgt    3  37,787 ± 2,633   s/op
-Extsort.extsort  1048576   10  title.csv    2  Buffered     Mmap  avgt    3  37,862 ± 4,850   s/op
-Extsort.extsort  4194304   10  title.csv    2  Buffered     Mmap  avgt    3  32,870 ± 2,537   s/op
+Benchmark            (M)  (d)         (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
+Extsort.extsort   524288   10  char_name.csv    2  Buffered     Mmap  avgt    3  25,458 ± 8,358   s/op
+Extsort.extsort  1048576   10  char_name.csv    2  Buffered     Mmap  avgt    3  24,629 ± 0,988   s/op
+Extsort.extsort  4194304   10  char_name.csv    2  Buffered     Mmap  avgt    3  20,853 ± 2,328   s/op
 
-Benchmark            (M)  (d)            (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
-Extsort.extsort  4194304    5  company_name.csv    2  Buffered     Mmap  avgt    3  1,618 ± 0,618   s/op
-Extsort.extsort  4194304   10  company_name.csv    2  Buffered     Mmap  avgt    3  1,575 ± 0,594   s/op
-Extsort.extsort  4194304   15  company_name.csv    2  Buffered     Mmap  avgt    3  1,587 ± 0,640   s/op
-Extsort.extsort  4194304   20  company_name.csv    2  Buffered     Mmap  avgt    3  1,571 ± 0,866   s/op
-Extsort.extsort  4194304   25  company_name.csv    2  Buffered     Mmap  avgt    3  1,586 ± 0,720   s/op
-Extsort.extsort  4194304   30  company_name.csv    2  Buffered     Mmap  avgt    3  1,592 ± 0,397   s/op
-Extsort.extsort  4194304   35  company_name.csv    2  Buffered     Mmap  avgt    3  1,575 ± 0,605   s/op
-Extsort.extsort  4194304   40  company_name.csv    2  Buffered     Mmap  avgt    3  1,566 ± 0,762   s/op
-
-Benchmark            (M)  (d)         (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
-Extsort.extsort  4194304    5  aka_title.csv    2  Buffered     Mmap  avgt    3  4,459 ± 0,302   s/op
-Extsort.extsort  4194304   10  aka_title.csv    2  Buffered     Mmap  avgt    3  2,965 ± 1,106   s/op
-Extsort.extsort  4194304   15  aka_title.csv    2  Buffered     Mmap  avgt    3  2,981 ± 1,093   s/op
-Extsort.extsort  4194304   20  aka_title.csv    2  Buffered     Mmap  avgt    3  2,949 ± 0,926   s/op
-Extsort.extsort  4194304   25  aka_title.csv    2  Buffered     Mmap  avgt    3  2,940 ± 1,085   s/op
-Extsort.extsort  4194304   30  aka_title.csv    2  Buffered     Mmap  avgt    3  2,938 ± 1,007   s/op
-Extsort.extsort  4194304   35  aka_title.csv    2  Buffered     Mmap  avgt    3  2,960 ± 0,994   s/op
-Extsort.extsort  4194304   40  aka_title.csv    2  Buffered     Mmap  avgt    3  2,959 ± 1,285   s/op
-
-Benchmark            (M)  (d)             (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
-Extsort.extsort  4194304    5  movie_keyword.csv    2  Buffered     Mmap  avgt    3  36,864 ± 3,829   s/op
-Extsort.extsort  4194304   10  movie_keyword.csv    2  Buffered     Mmap  avgt    3  27,665 ± 1,436   s/op
-Extsort.extsort  4194304   15  movie_keyword.csv    2  Buffered     Mmap  avgt    3  24,901 ± 3,239   s/op
-Extsort.extsort  4194304   20  movie_keyword.csv    2  Buffered     Mmap  avgt    3  28,492 ± 1,812   s/op
-Extsort.extsort  4194304   25  movie_keyword.csv    2  Buffered     Mmap  avgt    3  16,181 ± 3,571   s/op
-Extsort.extsort  4194304   30  movie_keyword.csv    2  Buffered     Mmap  avgt    3  16,148 ± 3,512   s/op
-Extsort.extsort  4194304   35  movie_keyword.csv    2  Buffered     Mmap  avgt    3  16,112 ± 2,675   s/op
-Extsort.extsort  4194304   40  movie_keyword.csv    2  Buffered     Mmap  avgt    3  16,263 ± 2,929   s/op
-
-Benchmark            (M)  (d)     (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
-Extsort.extsort  4194304    5  title.csv    2  Buffered     Mmap  avgt    3  35,657 ± 3,729   s/op
-Extsort.extsort  4194304   10  title.csv    2  Buffered     Mmap  avgt    3  32,488 ± 5,004   s/op
-Extsort.extsort  4194304   15  title.csv    2  Buffered     Mmap  avgt    3  27,955 ± 0,561   s/op
-Extsort.extsort  4194304   20  title.csv    2  Buffered     Mmap  avgt    3  27,400 ± 1,941   s/op
-Extsort.extsort  4194304   25  title.csv    2  Buffered     Mmap  avgt    3  24,681 ± 3,840   s/op
-Extsort.extsort  4194304   30  title.csv    2  Buffered     Mmap  avgt    3  26,035 ± 3,707   s/op
-Extsort.extsort  4194304   35  title.csv    2  Buffered     Mmap  avgt    3  26,892 ± 3,221   s/op
-Extsort.extsort  4194304   40  title.csv    2  Buffered     Mmap  avgt    3  28,504 ± 5,425   s/op
+Benchmark            (M)  (d)           (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
+Extsort.extsort   524288   10  person_info.csv    2  Buffered     Mmap  avgt    3  34,174 ± 4,555   s/op
+Extsort.extsort  1048576   10  person_info.csv    2  Buffered     Mmap  avgt    3  31,342 ± 2,167   s/op
+Extsort.extsort  4194304   10  person_info.csv    2  Buffered     Mmap  avgt    3  28,804 ± 2,213   s/op
 
 Benchmark            (M)  (d)            (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
-Extsort.extsort  4194304   25  company_name.csv    1  Buffered     Mmap  avgt    3  1,557 ± 1,030   s/op
-Extsort.extsort  4194304   25  company_name.csv    2  Buffered     Mmap  avgt    3  1,555 ± 0,597   s/op
-Extsort.extsort  4194304   25  company_name.csv    3  Buffered     Mmap  avgt    3  1,376 ± 0,755   s/op
-Extsort.extsort  4194304   25  company_name.csv    4  Buffered     Mmap  avgt    3  1,293 ± 0,785   s/op
-Extsort.extsort  4194304   25  company_name.csv    5  Buffered     Mmap  avgt    3  1,610 ± 0,668   s/op
-Extsort.extsort  4194304   25  company_name.csv    6  Buffered     Mmap  avgt    3  1,537 ± 0,666   s/op
-Extsort.extsort  4194304   25  company_name.csv    7  Buffered     Mmap  avgt    3  1,534 ± 0,777   s/op
+Extsort.extsort  4194304    5  company_name.csv    2  Buffered     Mmap  avgt    3  1,143 ± 0,333   s/op
+Extsort.extsort  4194304   10  company_name.csv    2  Buffered     Mmap  avgt    3  1,135 ± 0,373   s/op
+Extsort.extsort  4194304   15  company_name.csv    2  Buffered     Mmap  avgt    3  1,131 ± 0,424   s/op
+Extsort.extsort  4194304   20  company_name.csv    2  Buffered     Mmap  avgt    3  1,185 ± 0,692   s/op
+Extsort.extsort  4194304   25  company_name.csv    2  Buffered     Mmap  avgt    3  1,134 ± 0,359   s/op
+Extsort.extsort  4194304   30  company_name.csv    2  Buffered     Mmap  avgt    3  1,200 ± 0,487   s/op
+Extsort.extsort  4194304   35  company_name.csv    2  Buffered     Mmap  avgt    3  1,184 ± 0,542   s/op
+Extsort.extsort  4194304   40  company_name.csv    2  Buffered     Mmap  avgt    3  1,183 ± 0,293   s/op
 
-Benchmark            (M)  (d)         (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
-Extsort.extsort  4194304   25  aka_title.csv    1  Buffered     Mmap  avgt    3  2,948 ± 0,990   s/op
-Extsort.extsort  4194304   25  aka_title.csv    2  Buffered     Mmap  avgt    3  2,972 ± 0,897   s/op
-Extsort.extsort  4194304   25  aka_title.csv    3  Buffered     Mmap  avgt    3  2,993 ± 1,006   s/op
-Extsort.extsort  4194304   25  aka_title.csv    4  Buffered     Mmap  avgt    3  2,585 ± 0,995   s/op
-Extsort.extsort  4194304   25  aka_title.csv    5  Buffered     Mmap  avgt    3  2,616 ± 1,070   s/op
-Extsort.extsort  4194304   25  aka_title.csv    6  Buffered     Mmap  avgt    3  2,805 ± 1,060   s/op
-Extsort.extsort  4194304   25  aka_title.csv    7  Buffered     Mmap  avgt    3  2,991 ± 0,937   s/op
-Extsort.extsort  4194304   25  aka_title.csv    8  Buffered     Mmap  avgt    3  2,552 ± 1,085   s/op
-Extsort.extsort  4194304   25  aka_title.csv    9  Buffered     Mmap  avgt    3  2,576 ± 1,750   s/op
-Extsort.extsort  4194304   25  aka_title.csv   10  Buffered     Mmap  avgt    3  2,513 ± 1,292   s/op
-Extsort.extsort  4194304   25  aka_title.csv   11  Buffered     Mmap  avgt    3  2,799 ± 1,214   s/op
-Extsort.extsort  4194304   25  aka_title.csv   12  Buffered     Mmap  avgt    3  2,938 ± 1,065   s/op
-
-Benchmark            (M)  (d)             (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
-Extsort.extsort  4194304   25  movie_keyword.csv    1  Buffered     Mmap  avgt    3  15,717 ± 1,943   s/op
-Extsort.extsort  4194304   25  movie_keyword.csv    2  Buffered     Mmap  avgt    3  16,133 ± 3,590   s/op
-Extsort.extsort  4194304   25  movie_keyword.csv    3  Buffered     Mmap  avgt    3  20,815 ± 4,328   s/op
-
-Benchmark            (M)  (d)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
-Extsort.extsort  4194304   25    3  Buffered     Mmap  avgt    3  15,778 ± 2,038   s/op
-
+Benchmark            (M)  (d)        (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
+Extsort.extsort  4194304    5  aka_name.csv    2  Buffered     Mmap  avgt    3  6,542 ± 0,856   s/op
+Extsort.extsort  4194304   10  aka_name.csv    2  Buffered     Mmap  avgt    3  5,259 ± 0,320   s/op
+Extsort.extsort  4194304   15  aka_name.csv    2  Buffered     Mmap  avgt    3  5,835 ± 0,327   s/op
+Extsort.extsort  4194304   20  aka_name.csv    2  Buffered     Mmap  avgt    3  4,152 ± 1,065   s/op
+Extsort.extsort  4194304   25  aka_name.csv    2  Buffered     Mmap  avgt    3  4,131 ± 1,027   s/op
+Extsort.extsort  4194304   30  aka_name.csv    2  Buffered     Mmap  avgt    3  4,154 ± 0,744   s/op
+Extsort.extsort  4194304   35  aka_name.csv    2  Buffered     Mmap  avgt    3  4,294 ± 0,398   s/op
+Extsort.extsort  4194304   40  aka_name.csv    2  Buffered     Mmap  avgt    3  4,179 ± 0,653   s/op
 
 Benchmark            (M)  (d)     (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
-Extsort.extsort  4194304   25  title.csv    1  Buffered     Mmap  avgt    3  23,839 ± 0,682   s/op
-Extsort.extsort  4194304   25  title.csv    2  Buffered     Mmap  avgt    3  24,955 ± 0,379   s/op
-Extsort.extsort  4194304   25  title.csv    3  Buffered     Mmap  avgt    3  21,461 ± 1,416   s/op
-Extsort.extsort  4194304   25  title.csv    4  Buffered     Mmap  avgt    3  21,309 ± 1,763   s/op
-Extsort.extsort  4194304   25  title.csv    5  Buffered     Mmap  avgt    3  23,665 ± 1,271   s/op
-Extsort.extsort  4194304   25  title.csv    6  Buffered     Mmap  avgt    3  21,279 ± 0,853   s/op
-Extsort.extsort  4194304   25  title.csv    7  Buffered     Mmap  avgt    3  24,102 ± 2,481   s/op
-Extsort.extsort  4194304   25  title.csv    8  Buffered     Mmap  avgt    3  23,141 ± 1,686   s/op
-Extsort.extsort  4194304   25  title.csv    9  Buffered     Mmap  avgt    3  21,878 ± 1,116   s/op
-Extsort.extsort  4194304   25  title.csv   10  Buffered     Mmap  avgt    3  22,420 ± 2,142   s/op
-Extsort.extsort  4194304   25  title.csv   11  Buffered     Mmap  avgt    3  21,228 ± 0,901   s/op
-Extsort.extsort  4194304   25  title.csv   12  Buffered     Mmap  avgt    3  25,306 ± 3,477   s/op
+Extsort.extsort  4194304    5  title.csv    2  Buffered     Mmap  avgt    3  23,278 ± 2,162   s/op
+Extsort.extsort  4194304   10  title.csv    2  Buffered     Mmap  avgt    3  22,139 ± 2,231   s/op
+Extsort.extsort  4194304   15  title.csv    2  Buffered     Mmap  avgt    3  19,604 ± 0,388   s/op
+Extsort.extsort  4194304   20  title.csv    2  Buffered     Mmap  avgt    3  19,740 ± 0,467   s/op
+Extsort.extsort  4194304   25  title.csv    2  Buffered     Mmap  avgt    3  17,558 ± 1,050   s/op
+Extsort.extsort  4194304   30  title.csv    2  Buffered     Mmap  avgt    3  17,500 ± 0,946   s/op
+Extsort.extsort  4194304   35  title.csv    2  Buffered     Mmap  avgt    3  18,932 ± 1,222   s/op
+Extsort.extsort  4194304   40  title.csv    2  Buffered     Mmap  avgt    3  18,987 ± 1,813   s/op
+
+Benchmark            (M)  (d)    (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
+Extsort.extsort  4194304    5  name.csv    2  Buffered     Mmap  avgt    3  36,704 ± 4,721   s/op
+Extsort.extsort  4194304   10  name.csv    2  Buffered     Mmap  avgt    3  33,147 ± 4,878   s/op
+Extsort.extsort  4194304   15  name.csv    2  Buffered     Mmap  avgt    3  28,521 ± 5,802   s/op
+Extsort.extsort  4194304   20  name.csv    2  Buffered     Mmap  avgt    3  26,160 ± 2,385   s/op
+Extsort.extsort  4194304   25  name.csv    2  Buffered     Mmap  avgt    3  27,331 ± 5,484   s/op
+Extsort.extsort  4194304   30  name.csv    2  Buffered     Mmap  avgt    3  26,415 ± 2,081   s/op
+Extsort.extsort  4194304   35  name.csv    2  Buffered     Mmap  avgt    3  28,851 ± 3,038   s/op
+Extsort.extsort  4194304   40  name.csv    2  Buffered     Mmap  avgt    3  25,868 ± 2,881   s/op
+
+Benchmark            (M)  (d)       (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
+Extsort.extsort  4194304   25  keyword.csv    1  Buffered     Mmap  avgt    3  0,372 ± 0,517   s/op
+Extsort.extsort  4194304   25  keyword.csv    2  Buffered     Mmap  avgt    3  0,418 ± 0,688   s/op
+Extsort.extsort  4194304   25  keyword.csv    3  Buffered     Mmap  avgt    3  0,407 ± 0,841   s/op
+
+Benchmark            (M)  (d)              (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
+Extsort.extsort  4194304   25  movie_info_idx.csv    1  Buffered     Mmap  avgt    3  2,329 ± 1,343   s/op
+Extsort.extsort  4194304   25  movie_info_idx.csv    2  Buffered     Mmap  avgt    3  2,421 ± 0,637   s/op
+Extsort.extsort  4194304   25  movie_info_idx.csv    3  Buffered     Mmap  avgt    3  2,587 ± 1,525   s/op
+Extsort.extsort  4194304   25  movie_info_idx.csv    4  Buffered     Mmap  avgt    3  3,445 ± 0,580   s/op
+Extsort.extsort  4194304   25  movie_info_idx.csv    5  Buffered     Mmap  avgt    3  2,245 ± 1,202   s/op
+
+Benchmark            (M)  (d)               (file)  (k)   (xPair)  (yPair)  Mode  Cnt  Score   Error  Units
+Extsort.extsort  4194304   25  movie_companies.csv    1  Buffered     Mmap  avgt    3  5,307 ± 0,161   s/op
+Extsort.extsort  4194304   25  movie_companies.csv    2  Buffered     Mmap  avgt    3  5,607 ± 0,344   s/op
+Extsort.extsort  4194304   25  movie_companies.csv    3  Buffered     Mmap  avgt    3  7,377 ± 0,434   s/op
+Extsort.extsort  4194304   25  movie_companies.csv    4  Buffered     Mmap  avgt    3  5,237 ± 0,130   s/op
+Extsort.extsort  4194304   25  movie_companies.csv    5  Buffered     Mmap  avgt    3  6,437 ± 0,451   s/op
+
+Benchmark            (M)  (d)     (file)  (k)   (xPair)  (yPair)  Mode  Cnt   Score   Error  Units
+Extsort.extsort  4194304   25  title.csv    1  Buffered     Mmap  avgt    3  16,081 ± 0,560   s/op
+Extsort.extsort  4194304   25  title.csv    2  Buffered     Mmap  avgt    3  17,724 ± 0,654   s/op
+Extsort.extsort  4194304   25  title.csv    3  Buffered     Mmap  avgt    3  13,691 ± 0,131   s/op
+Extsort.extsort  4194304   25  title.csv    4  Buffered     Mmap  avgt    3  14,692 ± 0,586   s/op
+Extsort.extsort  4194304   25  title.csv    5  Buffered     Mmap  avgt    3  16,164 ± 0,276   s/op
+Extsort.extsort  4194304   25  title.csv    6  Buffered     Mmap  avgt    3  13,536 ± 0,708   s/op
+Extsort.extsort  4194304   25  title.csv    7  Buffered     Mmap  avgt    3  16,589 ± 1,192   s/op
+Extsort.extsort  4194304   25  title.csv    8  Buffered     Mmap  avgt    3  15,062 ± 2,115   s/op
+Extsort.extsort  4194304   25  title.csv    9  Buffered     Mmap  avgt    3  15,251 ± 1,564   s/op
+Extsort.extsort  4194304   25  title.csv   10  Buffered     Mmap  avgt    3  14,682 ± 0,130   s/op
+Extsort.extsort  4194304   25  title.csv   11  Buffered     Mmap  avgt    3  13,754 ± 0,122   s/op
+Extsort.extsort  4194304   25  title.csv   12  Buffered     Mmap  avgt    3  17,403 ± 1,176   s/op
+
+Benchmark            (M)  (d)         (file)  (k)   (xPair)  (yPair)  Mode  Cnt    Score    Error  Units
+Extsort.extsort  4194304   25  cast_info.csv    7  Buffered     Mmap  avgt    3  127,526 ± 16,033   s/op
+
+Benchmark            (M)  (d)         (file)  (k)   (xPair)  (yPair)  Mode  Cnt    Score    Error  Units
+Extsort.extsort  4194304   25  cast_info.csv    7  Buffered     Mmap  avgt    3  130,436 ± 28,141   s/op
+
+
+
 
 
 

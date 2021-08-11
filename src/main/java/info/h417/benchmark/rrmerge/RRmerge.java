@@ -23,11 +23,12 @@ import java.util.concurrent.TimeUnit;
 public class RRmerge {
 
     final String path = "database/imdb/";
-    final String[] files = {"comp_cast_type.csv", "kind_type.csv", "company_type.csv", "role_type.csv", "link_type.csv",
-            "info_type.csv", "movie_link.csv", "complete_cast.csv", "keyword.csv", "company_name.csv", "movie_info_idx.csv",
-            "aka_title.csv", "aka_name.csv", "movie_companies.csv", "movie_keyword.csv"};
+    final String[] files = {"comp_cast_type.csv", "kind_type.csv", "company_type.csv", "role_type.csv", "link_type.csv", "info_type.csv",
+            "movie_link.csv", "complete_cast.csv", "keyword.csv", "company_name.csv", "movie_info_idx.csv",
+            "aka_title.csv", "aka_name.csv", "movie_companies.csv", "movie_keyword.csv", "title.csv", "char_name.csv",
+            "name.csv", "person_info.csv", "movie_info.csv", "cast_info.csv"};
 
-    @Param({"2","3","4","5","6","7","8","9","10","11","12","13","14","15"})
+    @Param({"2","3","4","5","6","7","8","9","10","11","12"})
     int filesNumber;
 
     List<String> currentFiles = new ArrayList<>();
@@ -38,7 +39,6 @@ public class RRmerge {
     @Param({"One", "Buffered", "OneBuffer", "Mmap"})
     String yPair;
 
-    //@Param({"16", "256", "4096", "65536", "262144", "524288", "768000", "1048576", "4194304", "16777216"})
     int bufferSize = 524288;
 
     Generator readerGenerator;

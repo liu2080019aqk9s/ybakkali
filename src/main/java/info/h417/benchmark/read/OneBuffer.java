@@ -21,8 +21,9 @@ public class OneBuffer {
     Generator generator;
 
     @Param({"comp_cast_type.csv", "kind_type.csv", "company_type.csv", "role_type.csv", "link_type.csv", "info_type.csv",
-            "movie_link.csv", "complete_cast.csv", "keyword.csv", "company_name.csv", "movie_info_idx.csv",
-            "aka_title.csv", "aka_name.csv", "movie_companies.csv", "movie_keyword.csv"})
+        "movie_link.csv", "complete_cast.csv", "keyword.csv", "company_name.csv", "movie_info_idx.csv",
+        "aka_title.csv", "aka_name.csv", "movie_companies.csv", "movie_keyword.csv", "title.csv", "char_name.csv",
+        "name.csv", "person_info.csv", "movie_info.csv", "cast_info.csv"})
     String file;
 
     final String path = "database/imdb/";
