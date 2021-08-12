@@ -1,3 +1,6 @@
+info.h417.benchmark.extsort
+info.h417.benchmark.read
+info.h417.benchmark.rrmerge
 info.h417.model.algo
 info.h417.model.stream
 info.h417.model.stream.buffered
